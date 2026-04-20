@@ -3,7 +3,7 @@
    Tema: Cinematográfico - Oscuro con dorado
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,400&family=NunitoSans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
   --negro: #0a0a0a;
@@ -203,20 +203,32 @@ a:hover { color: var(--dorado-claro); }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(15,26,46,0.6) 100%);
-  z-index: 1;
+  /* Bajamos la opacidad: el 0.8 y 0.6 controlan qué tanto se ve el video */
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 26, 46, 0.6) 100%);
+  z-index: 1; /* Por encima del video, por debajo del grano */
 }
 /* El video propiamente dicho */
 .hero-bg iframe {
-  width: 100vw;
-  height: 56.25vw; /* Ratio 16:9 */
-  min-height: 100vh;
-  min-width: 177.77vh; /* Mantiene el video cubriendo todo sin bordes negros */
+  .hero-bg iframe {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 100vw; 
+  height: 56.25vw; /* Esto mantiene la proporción 16:9 (9 dividido por 16) */
+  min-height: 100vh;
+  min-width: 177.77vh; /* Esto evita franjas negras (16 dividido por 9) */
+  
+  /* Centrado absoluto */
   transform: translate(-50%, -50%);
-  pointer-events: none; /* Evita que el usuario pause el video */
+  
+  /* Quitamos cualquier borde o margen que traiga el iframe */
+  border: none;
+  margin: 0;
+  padding: 0;
+  
+  /* Evita que el usuario pueda pausarlo con un clic */
+  pointer-events: none;
+}
 }
 
 /* Ajustamos el z-index de las capas decorativas para que queden sobre el video */
