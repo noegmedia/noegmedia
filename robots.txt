@@ -1,0 +1,55 @@
+# NoéGMedia - robots.txt
+# Estudio Creativo Audiovisual de Marbella
+# https://www.noegmedia.es
+
+# ── Motores de búsqueda tradicionales ──
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── Bots de IA / LLMs (permitidos explícitamente) ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Gemini-Bot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ── Todos los demás ──
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# ── Sitemap ──
+Sitemap: https://www.noegmedia.es/sitemap.xml
