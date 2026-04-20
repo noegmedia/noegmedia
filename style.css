@@ -189,11 +189,41 @@ a:hover { color: var(--dorado-claro); }
   position: relative;
   overflow: hidden;
 }
+/* Modificamos el contenedor del fondo para que oculte el sobrante del video */
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0a0a0a 0%, #0f1a2e 50%, #1a0f0a 100%);
+  overflow: hidden;
+  z-index: 0;
+  /* Mantenemos un fondo oscuro por si el video tarda en cargar */
+  background: #0a0a0a; 
 }
+/* Capa oscura encima del video para que el texto sea legible */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(15,26,46,0.6) 100%);
+  z-index: 1;
+}
+/* El video propiamente dicho */
+.hero-bg iframe {
+  width: 100vw;
+  height: 56.25vw; /* Ratio 16:9 */
+  min-height: 100vh;
+  min-width: 177.77vh; /* Mantiene el video cubriendo todo sin bordes negros */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Evita que el usuario pause el video */
+}
+
+/* Ajustamos el z-index de las capas decorativas para que queden sobre el video */
+.hero-grain, .hero-lineas, .hero-acento {
+  z-index: 2;
+}
+
 .hero-grain {
   position: absolute;
   inset: 0;
@@ -218,7 +248,7 @@ a:hover { color: var(--dorado-claro); }
 }
 .hero-contenido {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 800px;
 }
 .hero-contenido .etiqueta {
