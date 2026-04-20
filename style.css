@@ -208,7 +208,7 @@ a:hover { color: var(--dorado-claro); }
   z-index: 1; /* Por encima del video, por debajo del grano */
 }
 /* El video propiamente dicho */
-.hero-bg iframe {
+
   .hero-bg iframe {
   position: absolute;
   top: 50%;
@@ -228,7 +228,6 @@ a:hover { color: var(--dorado-claro); }
   
   /* Evita que el usuario pueda pausarlo con un clic */
   pointer-events: none;
-}
 }
 
 /* Ajustamos el z-index de las capas decorativas para que queden sobre el video */
