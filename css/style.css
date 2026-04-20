@@ -3,7 +3,7 @@
    Tema: Cinematográfico - Oscuro con dorado
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,400&family=Nunito Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
   --negro: #0a0a0a;
@@ -20,8 +20,8 @@
   --rojo-acento: #c04a2a;
   --azul-acento: #1a3a5c;
 
-  --fuente-titulo: 'Playfair Display', serif;
-  --fuente-cuerpo: 'DM Sans', sans-serif;
+  --fuente-titulo: 'Nunito', serif;
+  --fuente-cuerpo: 'Nunito Sans', sans-serif;
   --fuente-mono: 'DM Mono', monospace;
 
   --radio: 4px;
@@ -192,7 +192,34 @@ a:hover { color: var(--dorado-claro); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0a0a0a 0%, #0f1a2e 50%, #1a0f0a 100%);
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-bg iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; 
+  min-height: 100vh;
+  min-width: 177.77vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border: none;
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.75) 0%, rgba(15, 26, 46, 0.6) 100%);
+  z-index: 1;
+}
+hero-grain, .hero-lineas, .hero-acento {
+  z-index: 2;
+}
+
+.hero-contenido {
+  z-index: 3;
 }
 .hero-grain {
   position: absolute;
