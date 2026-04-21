@@ -99,7 +99,7 @@ a:hover { color: var(--dorado-claro); }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 1.2rem 2rem;
+  padding: 0.8rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -109,10 +109,12 @@ a:hover { color: var(--dorado-claro); }
 .navbar.scrolled {
   background: rgba(10,10,10,0.96);
   backdrop-filter: blur(12px);
-  padding: 0.8rem 2rem;
+  padding: 0.5rem 2rem;
   border-bottom: 1px solid rgba(201,168,76,0.1);
 }
 .navbar-logo {
+  display: flex;
+  align-items: center;
   font-family: var(--fuente-titulo);
   font-size: 1.6rem;
   font-weight: 900;
@@ -120,6 +122,15 @@ a:hover { color: var(--dorado-claro); }
   letter-spacing: -0.02em;
 }
 .navbar-logo span { color: var(--dorado); }
+.navbar-logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+  transition: height var(--transicion);
+}
+.navbar.scrolled .navbar-logo img {
+  height: 30px;
+}
 .navbar-menu {
   display: flex;
   align-items: center;
