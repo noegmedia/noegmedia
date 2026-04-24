@@ -1,9 +1,9 @@
 backend:
   name: github
-  repo: noegmedia/noegmedia        # Tu usuario/repositorio
+  repo: noegmedia/noegmedia
   branch: main
-  base_url: https://sveltia-cms-auth.pages.dev  # Auth proxy gratuito (ver README)
-
+  # Sin base_url — usa GitHub OAuth directamente
+  
 # Las imágenes que subas desde el CMS se guardan aquí
 media_folder: img/noticias
 public_folder: /img/noticias
