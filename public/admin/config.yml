@@ -1,0 +1,69 @@
+backend:
+  name: github
+  repo: noegmedia/noegmedia        # Tu usuario/repositorio
+  branch: main
+  base_url: https://sveltia-cms-auth.pages.dev  # Auth proxy gratuito (ver README)
+
+# Las imágenes que subas desde el CMS se guardan aquí
+media_folder: img/noticias
+public_folder: /img/noticias
+
+# Idioma del panel
+locale: es
+
+collections:
+  - name: noticias
+    label: Noticias
+    label_singular: Noticia
+    folder: noticias              # Carpeta donde se guardan los .md
+    create: true                  # Permite crear nuevos artículos
+    delete: true
+    slug: "{{slug}}"              # Nombre del archivo = slug del título
+    preview_path: "noticias/{{slug}}.html"
+
+    fields:
+      - label: Título
+        name: titulo
+        widget: string
+        hint: "El titular de la noticia"
+
+      - label: Fecha de publicación
+        name: fecha
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "DD/MM/YYYY"
+        time_format: false
+        default: ""
+
+      - label: Categoría
+        name: categoria
+        widget: select
+        options:
+          - { label: "NoéGMedia",     value: "NoéGMedia" }
+          - { label: "Streaming",     value: "Streaming" }
+          - { label: "Filmmaking",    value: "Filmmaking" }
+          - { label: "Creative",      value: "Creative" }
+          - { label: "Marbella",      value: "Marbella" }
+          - { label: "Sector",        value: "Sector" }
+
+      - label: Resumen
+        name: resumen
+        widget: text
+        hint: "1-2 frases que aparecen en la tarjeta de la noticia"
+
+      - label: Emoji
+        name: emoji
+        widget: string
+        default: "📰"
+        hint: "Un emoji que representa la noticia (📡 🎬 ✦ 🌊 🚀 🎥)"
+
+      - label: Publicado
+        name: publicado
+        widget: boolean
+        default: true
+        hint: "Desactiva para guardar como borrador"
+
+      - label: Contenido
+        name: body
+        widget: markdown
+        hint: "Usa el editor para formatear el texto. Soporta títulos, negrita, listas, enlaces e imágenes."
