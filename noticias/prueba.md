@@ -27,3 +27,5 @@ Y como no, citar a un campeón
 
 > Es el vecino el que elije al alcalde, y es el alcalde el que quieren que sean los vecinos el alcalde.
 *M. Rajoy*
+
+Honestamente, escribir en Markdown, una vez **que se domine** es un verdadero paraiso para los *bloggers*, y una oportunidad para tener un **elegante blog** sin tener que recurrir a ~guarros medios~ 
