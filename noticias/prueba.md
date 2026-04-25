@@ -1,6 +1,7 @@
 ---
 
-titulo:prueba
+titulo: prueba
+Fecha: hoy
 
 ---
 
@@ -19,3 +20,5 @@ En MarkDown podemos hacer cosas interesantes como
 3. Enviar datos.
 
 También podriamos codigo en *cualquier lenguaje*
+
+`<text align="center">`
