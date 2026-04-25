@@ -22,3 +22,7 @@ En MarkDown podemos hacer cosas interesantes como
 También podriamos codigo en *cualquier lenguaje*
 
 `<text align="center">`
+
+Y como no, citar a un campeón 
+
+> Es el vecino el que elije al alcalde, y es el alcalde el que quieren que sean los vecinos el alcalde.*M. Rajoy*
