@@ -25,4 +25,5 @@ También podriamos codigo en *cualquier lenguaje*
 
 Y como no, citar a un campeón 
 
-> Es el vecino el que elije al alcalde, y es el alcalde el que quieren que sean los vecinos el alcalde.*M. Rajoy*
+> Es el vecino el que elije al alcalde, y es el alcalde el que quieren que sean los vecinos el alcalde.
+*M. Rajoy*
