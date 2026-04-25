@@ -15,9 +15,9 @@ Se trata de un nuevo formato de escritura donde podemos crear contenido directam
 
 En MarkDown podemos hacer cosas interesantes como 
 
-1. Hacer Listas
-2. ~Comprar Chorizos~
-3. Enviar datos.
+- Hacer Listas
+- ~Comprar Chorizos~
+- Enviar datos 📨
 
 También podriamos codigo en *cualquier lenguaje*
 
