@@ -16,8 +16,8 @@ collections:
     folder: "noticias"
     create: true
     delete: true
-    slug: "{{slug}}"
-    preview_path: "noticias/{{slug}}.html"
+    slug: "{{titulo}}"
+    preview_path: "noticias/{{titulo}}.html"
     fields:
       - label: "Título"
         name: "titulo"
