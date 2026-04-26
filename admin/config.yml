@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: noegmedia/noegmedia
+  name: git-gateway
   branch: main
   # Sin base_url — usa GitHub OAuth directamente
   
