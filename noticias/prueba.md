@@ -1,8 +1,11 @@
 ---
-
-titulo: prueba
+titulo: Prueba
 Fecha: hoy
-
+fecha: 2026-04-26
+categoria: NoéGMedia
+resumen: Prueba para grabar
+emoji: :)
+publicado: true
 ---
 
 Hola esto es una **prueba** para escribir artículos en MarkDown
