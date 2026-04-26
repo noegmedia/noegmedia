@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'noticias/**.md'
+- 'despachonoe/**.md'
+
       - 'build-noticias.js'
   workflow_dispatch:
 
