@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+ name: github
+  repo: noegmedia/noegmedia
   branch: main
+  base_url: https://sveltia-cms-auth.pages.dev
   # Sin base_url — usa GitHub OAuth directamente
   
 # Las imágenes que subas desde el CMS se guardan aquí
