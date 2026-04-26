@@ -40,7 +40,7 @@ collections:
           - { label: "Filmmaking", value: "filmmaking" }
           - { label: "Creative", value: "creative" }
           - { label: "Marbella", value: "marbella" }
-          - { label: "Sector", value: "sector" }
+          - { label: "Despacho de Noé", value: "despachonoe" }
 
       - label: "Resumen"
         name: "resumen"
