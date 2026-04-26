@@ -1,69 +1,63 @@
 backend:
- name: github
- repo: noegmedia/noegmedia
- branch: main
- base_url: https://sveltia-cms-auth.pages.dev
-  # Sin base_url — usa GitHub OAuth directamente
-  
-# Las imágenes que subas desde el CMS se guardan aquí
-media_folder: img/noticias
-public_folder: /img/noticias
+  name: github
+  repo: noegmedia/noegmedia
+  branch: main
+  base_url: https://sveltia-cms-auth.pages.dev
 
-# Idioma del panel
-locale: es
+media_folder: "img/noticias"
+public_folder: "/img/noticias"
+
+locale: "es"
 
 collections:
-  - name: noticias
-    label: Noticias
-    label_singular: Noticia
-    folder: noticias              # Carpeta donde se guardan los .md
-    create: true                  # Permite crear nuevos artículos
+  - name: "noticias"
+    label: "Noticias"
+    label_singular: "Noticia"
+    folder: "noticias"
+    create: true
     delete: true
-    slug: "{{slug}}"              # Nombre del archivo = slug del título
+    slug: "{{slug}}"
     preview_path: "noticias/{{slug}}.html"
     fields:
-      - label: Título
-        name: titulo
-        widget: string
+      - label: "Título"
+        name: "titulo"
+        widget: "string"
         hint: "El titular de la noticia"
 
-      - label: Fecha de publicación
-        name: fecha
-        widget: datetime
+      - label: "Fecha de publicación"
+        name: "fecha"
+        widget: "datetime"
         format: "YYYY-MM-DD"
         date_format: "DD/MM/YYYY"
         time_format: false
-        default: ""
 
-      - label: Categoría
-        name: categoria
-        widget: select
+      - label: "Categoría"
+        name: "categoria"
+        widget: "select"
         options:
-          - { label: "NoéGMedia",     value: "NoéGMedia" }
-          - { label: "Streaming",     value: "Streaming" }
-          - { label: "Filmmaking",    value: "Filmmaking" }
-          - { label: "Creative",      value: "Creative" }
-          - { label: "Marbella",      value: "Marbella" }
-          - { label: "Despacho de Noé",        value: "DespachoNoe" }
+          - { label: "NoéGMedia", value: "noegmedia" }
+          - { label: "Streaming", value: "streaming" }
+          - { label: "Filmmaking", value: "filmmaking" }
+          - { label: "Creative", value: "creative" }
+          - { label: "Marbella", value: "marbella" }
+          - { label: "Sector", value: "sector" }
 
-      - label: Resumen
-        name: resumen
-        widget: text
+      - label: "Resumen"
+        name: "resumen"
+        widget: "text"
         hint: "1-2 frases que aparecen en la tarjeta de la noticia"
 
-      - label: Emoji
-        name: emoji
-        widget: string
+      - label: "Emoji"
+        name: "emoji"
+        widget: "string"
         default: "📰"
         hint: "Un emoji que representa la noticia (📡 🎬 ✦ 🌊 🚀 🎥)"
 
-      - label: Publicado
-        name: publicado
-        widget: boolean
+      - label: "Publicado"
+        name: "publicado"
+        widget: "boolean"
         default: true
-        hint: "Desactiva para guardar como borrador"
 
-      - label: Contenido
-        name: body
-        widget: markdown
-        hint: "Usa el editor para formatear el texto. Soporta títulos, negrita, listas, enlaces e imágenes."
+      - label: "Contenido"
+        name: "body"
+        widget: "markdown"
