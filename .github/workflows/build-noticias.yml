@@ -4,10 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'noticias/**.md'
-- 'despachonoe/**.md'
-
-      - 'build-noticias.js'
+    - 'noticias/**.md'
+    - 'build-noticias.js'
   workflow_dispatch:
 
 permissions:
