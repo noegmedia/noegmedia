@@ -3,7 +3,7 @@
    Tema: Cinematográfico - Oscuro con dorado
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&family=Nunito Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&family=Nunito Sans:wght@300;400;500;600&family=Playwrite Deutschland Schulausgangschrift:wght@400;500&display=swap');
 
 :root {
   --negro: #0a0a0a;
@@ -22,7 +22,7 @@
 
   --fuente-titulo: 'Montserrat', serif;
   --fuente-cuerpo: 'Nunito Sans', sans-serif;
-  --fuente-mono: 'DM Mono', monospace;
+  --fuente-mono: 'Playwrite Deutschland Schulausgangschrift';
 
   --radio: 4px;
   --radio-grande: 12px;
