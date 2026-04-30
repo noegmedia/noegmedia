@@ -142,7 +142,7 @@ for (const { slug, meta, cuerpo } of noticias) {
   <title>${titulo} | NoéGMedia</title>
   <script type="application/ld+json">${schema}<\/script>
   <style>
-    .articulo-wrap{max-width:720px;margin:0 auto;padding:8rem 2rem 5rem}
+    .articulo-wrap{max-width:960px;margin:0 auto;padding:8rem 2rem 5rem}
     .articulo-meta{display:flex;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06)}
     .articulo-meta span{font-family:var(--fuente-mono,monospace);font-size:.78rem;color:#777}
     .articulo-meta .cat{color:var(--dorado,#c9a84c)}
