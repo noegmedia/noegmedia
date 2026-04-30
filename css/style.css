@@ -22,7 +22,7 @@
 
   --fuente-titulo: 'Montserrat', serif;
   --fuente-cuerpo: 'Nunito Sans', sans-serif;
-  --fuente-mono: 'Playwrite Deutschland Schulausgangschrift';
+  --fuente-mono: 'Playwrite Deutschland Schulausgangschrift, monospace';
 
   --radio: 4px;
   --radio-grande: 12px;
@@ -55,8 +55,8 @@ h1, h2, h3, h4 {
   color: var(--blanco);
   line-height: 1.2;
 }
-h1 { font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 900; }
-h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 700; }
+h1 { font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 500; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 400; }
 h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 400; font-style: italic; }
 h4 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.05em; }
 p { color: var(--blanco-suave); font-weight: 300; }
@@ -886,7 +886,7 @@ footer {
 }
 #cargador.oculto { opacity: 0; pointer-events: none; }
 .cargador-logo {
-   width: 320px;
+   width: 180px;
   height: auto;
 }
 .cargador-barra {
