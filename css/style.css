@@ -643,7 +643,7 @@ hero-grain, .hero-lineas, .hero-acento {
 
 /* ─── ARTÍCULO NOTICIA ─── */
 .articulo-contenido {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
 }
 .articulo-contenido h1 { margin-bottom: 1rem; }
@@ -886,14 +886,11 @@ footer {
 }
 #cargador.oculto { opacity: 0; pointer-events: none; }
 .cargador-logo {
-  font-family: var(--fuente-titulo);
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--blanco);
+   width: 320px;
+  height: auto;
 }
-.cargador-logo span { color: var(--dorado); }
 .cargador-barra {
-  width: 200px; height: 1px;
+  width: 400px; height: 1px;
   background: var(--gris-medio);
   position: relative;
   overflow: hidden;
