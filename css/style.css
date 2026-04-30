@@ -885,8 +885,8 @@ footer {
   transition: opacity 0.5s ease;
 }
 #cargador.oculto { opacity: 0; pointer-events: none; }
-.cargador-logo {
-   width: 180px;
+.cargador-logo img{
+   width: 240px;
   height: auto;
 }
 .cargador-barra {
