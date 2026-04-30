@@ -68,24 +68,3 @@ document.querySelectorAll('.servicio-card, .diferencia-item, .categoria-card, .n
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observador.observe(el);
 });
-
-
-// ─── FORMULARIO CONTACTO ───
-const formContacto = document.getElementById('form-contacto');
-if (formContacto) {
-  formContacto.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = formContacto.querySelector('button[type="submit"]');
-    btn.textContent = '✓ Mensaje enviado';
-    btn.disabled = true;
-    btn.style.background = '#2d5a27';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = 'Enviar mensaje';
-      btn.disabled = false;
-      btn.style.background = '';
-      btn.style.color = '';
-      formContacto.reset();
-    }, 4000);
-  });
-}
