@@ -8,25 +8,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito+Sans:wght@300;400;600&display=swap');
 
 :root {
-  /* Paleta de Colores: Neutralidad y Confianza */
-  --negro: #0f0f0f;          /* Negro mate, más suave y profesional */
-  --negro-suave: #161616;
-  --negro-card: #1c1c1c;
-  --gris-oscuro: #252525;
-  --gris-medio: #404040;
-  --gris-texto: #a0a0a0;     /* Gris para textos secundarios */
+  /* Mantenemos tus nombres exactos para que la web siga funcionando */
+  --negro: #0a0a0a;
+  --negro-suave: #121212; /* Un matiz más grisáceo para ser menos agresivo */
+  --negro-card: #181818;
+  --gris-oscuro: #222222;
+  --gris-medio: #444444;
+  --gris-texto: #a0a0a0; /* Mejoramos legibilidad */
   --blanco: #ffffff;
-  --blanco-suave: #e5e5e5;   /* Blanco roto para no deslumbrar */
-  
-  /* Color de Acento: Sustituimos el dorado por Azul Técnico */
-  --acento: #0055ff;         /* Azul de confianza y señal digital */
-  --acento-claro: #3377ff;
-  --acento-oscuro: #003db3;
-  
-  /* Tipografía: Eliminamos Playwrite por falta de seriedad */
+  --blanco-suave: #e0e0e0;
+
+  /* SUSTITUIMOS EL DORADO POR AZUL TÉCNICO (Confianza y Tecnología) */
+  /* Así no pareces una inmobiliaria de lujo, sino un estudio técnico serio */
+  --dorado: #0055ff;        /* Ahora el 'dorado' es visualmente un azul profesional */
+  --dorado-claro: #3377ff;
+  --dorado-oscuro: #003db3;
+
+  --rojo-acento: #c04a2a;
+  --azul-acento: #1a3a5c;
+
+  /* TIPOGRAFÍA: Eliminamos la caligráfica para ganar seriedad */
   --fuente-titulo: 'Montserrat', sans-serif;
   --fuente-cuerpo: 'Nunito Sans', sans-serif;
-  --fuente-mono: 'Montserrat', sans-serif; /* Usamos Montserrat con espaciado para etiquetas */
+  --fuente-mono: 'Montserrat', sans-serif; /* Montserrat limpia en lugar de Playwrite */
+
+  --radio: 4px;
+  --radio-grande: 8px; /* Reducimos redondez para dar un aspecto más corporativo */
+  --sombra: 0 4px 24px rgba(0,0,0,0.5);
+  --sombra-dorada: 0 0 20px rgba(0,85,255,0.1); /* Sombra azul técnica muy sutil */
+  --transicion: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 
   --radio: 4px;              /* Bordes rectos = seriedad */
   --radio-grande: 8px;
