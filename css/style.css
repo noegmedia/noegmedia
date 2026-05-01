@@ -3,32 +3,36 @@
    Tema: Cinematográfico - Oscuro con dorado
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&family=Nunito Sans:wght@300;400;500;600&family=Playwrite Deutschland Schulausgangschrift:wght@400;500&display=swap');
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito+Sans:wght@300;400;600&display=swap');
 
 :root {
-  --negro: #0a0a0a;
-  --negro-suave: #111111;
-  --negro-card: #161616;
-  --gris-oscuro: #1e1e1e;
-  --gris-medio: #2e2e2e;
-  --gris-texto: #888;
-  --blanco: #f5f0eb;
-  --blanco-suave: #d4cdc4;
-  --dorado: #c9a84c;
-  --dorado-claro: #e8c96d;
-  --dorado-oscuro: #9a7535;
-  --rojo-acento: #c04a2a;
-  --azul-acento: #1a3a5c;
-
-  --fuente-titulo: 'Montserrat', serif;
+  /* Paleta de Colores: Neutralidad y Confianza */
+  --negro: #0f0f0f;          /* Negro mate, más suave y profesional */
+  --negro-suave: #161616;
+  --negro-card: #1c1c1c;
+  --gris-oscuro: #252525;
+  --gris-medio: #404040;
+  --gris-texto: #a0a0a0;     /* Gris para textos secundarios */
+  --blanco: #ffffff;
+  --blanco-suave: #e5e5e5;   /* Blanco roto para no deslumbrar */
+  
+  /* Color de Acento: Sustituimos el dorado por Azul Técnico */
+  --acento: #0055ff;         /* Azul de confianza y señal digital */
+  --acento-claro: #3377ff;
+  --acento-oscuro: #003db3;
+  
+  /* Tipografía: Eliminamos Playwrite por falta de seriedad */
+  --fuente-titulo: 'Montserrat', sans-serif;
   --fuente-cuerpo: 'Nunito Sans', sans-serif;
-  --fuente-mono: 'Playwrite Deutschland Schulausgangschrift', monospace;
+  --fuente-mono: 'Montserrat', sans-serif; /* Usamos Montserrat con espaciado para etiquetas */
 
-  --radio: 4px;
-  --radio-grande: 12px;
-  --sombra: 0 4px 24px rgba(0,0,0,0.5);
-  --sombra-dorada: 0 0 30px rgba(201,168,76,0.15);
-  --transicion: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radio: 4px;              /* Bordes rectos = seriedad */
+  --radio-grande: 8px;
+  --sombra: 0 10px 30px rgba(0,0,0,0.5);
+  --sombra-acento: 0 0 20px rgba(0,85,255,0.15); /* Sombra azul sutil */
+  --transicion: 0.25s ease-out;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
