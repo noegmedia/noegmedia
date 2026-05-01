@@ -8,24 +8,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito+Sans:wght@300;400;600&display=swap');
 
 :root {
-  /* Mantenemos tus nombres exactos para que la web siga funcionando */
   --negro: #0a0a0a;
-  --negro-suave: #121212; /* Un matiz más grisáceo para ser menos agresivo */
-  --negro-card: #181818;
-  --gris-oscuro: #222222;
-  --gris-medio: #444444;
-  --gris-texto: #a0a0a0; /* Mejoramos legibilidad */
-  --blanco: #ffffff;
-  --blanco-suave: #e0e0e0;
-
-  /* SUSTITUIMOS EL DORADO POR AZUL TÉCNICO (Confianza y Tecnología) */
-  /* Así no pareces una inmobiliaria de lujo, sino un estudio técnico serio */
-  --dorado: #0055ff;        /* Ahora el 'dorado' es visualmente un azul profesional */
-  --dorado-claro: #3377ff;
-  --dorado-oscuro: #003db3;
-
+  --negro-suave: #111111;
+  --negro-card: #161616;
+  --gris-oscuro: #1e1e1e;
+  --gris-medio: #2e2e2e;
+  --gris-texto: #888;
+  --blanco: #f5f0eb;
+  --blanco-suave: #d4cdc4;
+  --dorado: #c9a84c;
+  --dorado-claro: #e8c96d;
+  --dorado-oscuro: #9a7535;
   --rojo-acento: #c04a2a;
-  --azul-acento: #1a3a5c;
+  --azul-acento: #1a3a
 
   /* TIPOGRAFÍA: Eliminamos la caligráfica para ganar seriedad */
   --fuente-titulo: 'Montserrat', sans-serif;
