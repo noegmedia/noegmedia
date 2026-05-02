@@ -170,6 +170,14 @@ a:hover { color: var(--dorado-claro); }
   min-width: 180px;
   box-shadow: var(--sombra);
 }
+.navbar-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 1rem;
+}
 .navbar-dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a {
   display: block;
