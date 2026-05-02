@@ -179,7 +179,6 @@ a:hover { color: var(--dorado-claro); }
   right: 0;
   height: 0.5rem;
 }
-.navbar-dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a {
   display: block;
   padding: 0.6rem 1rem;

@@ -68,3 +68,30 @@ document.querySelectorAll('.servicio-card, .diferencia-item, .categoria-card, .n
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observador.observe(el);
 });
+
+// ─── DROPDOWN PROYECTOS ───
+document.querySelectorAll('.navbar-dropdown').forEach(dropdown => {
+  const menu = dropdown.querySelector('.dropdown-menu');
+  let timer;
+
+  dropdown.addEventListener('mouseenter', () => {
+    clearTimeout(timer);
+    menu.style.display = 'block';
+  });
+
+  dropdown.addEventListener('mouseleave', () => {
+    timer = setTimeout(() => {
+      menu.style.display = 'none';
+    }, 150);
+  });
+
+  menu.addEventListener('mouseenter', () => {
+    clearTimeout(timer);
+  });
+
+  menu.addEventListener('mouseleave', () => {
+    timer = setTimeout(() => {
+      menu.style.display = 'none';
+    }, 150);
+  });
+});
