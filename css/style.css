@@ -160,7 +160,7 @@ a:hover { color: var(--dorado-claro); }
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 1rem);
+  top: calc(100% + 0.3rem);
   left: 50%;
   transform: translateX(-50%);
   background: var(--negro-card);
@@ -176,7 +176,7 @@ a:hover { color: var(--dorado-claro); }
   top: 100%;
   left: 0;
   right: 0;
-  height: 1rem;
+  height: 0.5rem;
 }
 .navbar-dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a {
