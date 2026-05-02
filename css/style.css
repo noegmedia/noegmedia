@@ -965,6 +965,11 @@ footer {
   .cta-section { padding: 2.5rem 1.5rem; }
   .pagina-titulo-grande { display: none; }
   .seccion { padding: 4rem 0; }
+
+   /* ─── SOBRE NOSOTROS ─── */
+  .sobre-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+  .timeline { padding-left: 2rem; }
+  .stats-row { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 480px) {
