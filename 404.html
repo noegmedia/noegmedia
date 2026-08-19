@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - Página no encontrada · NoéGMedia</title>
+  <title>404 — NoéGMedia</title>
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--verde:#007A4D;--verde-o:#005C3A;--blanco:#FAFAF7;--negro:#111210;--gris:#6B7280}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;background:var(--blanco);color:var(--negro);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;gap:1.5rem}
+    .deco{font-size:10rem;font-weight:900;color:rgba(0,122,77,0.07);line-height:1;user-select:none}
+    h1{font-size:2rem;font-weight:900;letter-spacing:-0.03em;margin-top:-2rem}
+    p{font-size:1rem;color:var(--gris)}
+    a{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;font-weight:600;padding:0.8rem 2rem;border-radius:100px;background:var(--verde);color:#fff;text-decoration:none;transition:background 0.3s ease,transform 0.3s ease;margin-top:0.5rem}
+    a:hover{background:var(--verde-o);transform:translateY(-2px)}
+    .favicon-deco{width:60px;opacity:0.12}
+  </style>
 </head>
 <body>
-<section style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center">
-  <div>
-    <div style="font-family:var(--fuente-titulo);font-size:10rem;font-weight:900;color:rgba(201,168,76,0.08);line-height:1">404</div>
-    <h1 style="margin-top:-2rem;margin-bottom:1rem">Página no encontrada</h1>
-    <p style="color:var(--gris-texto);margin-bottom:2rem">La página que buscas no existe o ha sido movida.</p>
-    <a href="index.html" class="btn btn-primario">← Volver al inicio</a>
-  </div>
-</section>
-<script src="js/main.js"></script>
+  <img src="img/favicon.svg" alt="" class="favicon-deco" aria-hidden="true">
+  <div class="deco">404</div>
+  <h1>Página no encontrada</h1>
+  <p>Esto no existe por aquí. Vuelve al inicio y lo encontramos.</p>
+  <a href="index.html">← Volver al inicio</a>
 </body>
 </html>

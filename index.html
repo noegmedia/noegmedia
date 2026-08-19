@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Noé G. — Creativo Audiovisual de Marbella. Streaming, filmmaking y contenido digital.">
-  <meta property="og:title" content="Noé G. — Creativo Audiovisual de Marbella">
-  <meta property="og:description" content="Streaming, filmmaking y contenido digital desde Marbella.">
+  <meta name="description" content="NoéGMedia — Un estudio creativo audiovisual de Marbella. Spots, contenido creativo y realizaciones multicámara. Sin empresa, sin pretensiones.">
+  <meta property="og:title" content="NoéGMedia — Estudio Creativo Audiovisual de Marbella">
+  <meta property="og:description" content="Un estudio audiovisual de Marbella, totalmente creativo. Spots, contenido y multicámara en directo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.noegmedia.es">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@noegmedia">
   <link rel="canonical" href="https://www.noegmedia.es">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <title>Noé G. — Creativo Audiovisual · Marbella</title>
+  <title>NoéGMedia — Estudio Creativo Audiovisual · Marbella</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,900;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;900&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -23,614 +24,1060 @@
     "@type": "Person",
     "name": "Noé G.",
     "jobTitle": "Creativo Audiovisual",
+    "brand": { "@type": "Brand", "name": "NoéGMedia" },
     "url": "https://www.noegmedia.es",
-    "image": "https://www.noegmedia.es/img/logo-noegmedia.svg",
     "address": { "@type": "PostalAddress", "addressLocality": "Marbella", "addressRegion": "Málaga", "addressCountry": "ES" },
-    "sameAs": [
-      "https://instagram.com/noegmedia",
-      "https://youtube.com/@noegmedia",
-      "https://tiktok.com/@noegmedia",
-      "https://x.com/noegmedia",
-      "https://www.linkedin.com/noeg-media/"
-    ]
+    "sameAs": ["https://instagram.com/noegmedia","https://youtube.com/@noegmedia","https://tiktok.com/@noegmedia","https://x.com/noegmedia"]
   }
   </script>
 
   <style>
+    /* ── VARIABLES ── */
     :root {
-      --negro: #0a0a0a;
-      --negro-s: #111;
-      --negro-c: #161616;
-      --gris-o: #1e1e1e;
-      --gris-t: #666;
-      --blanco: #f5f0eb;
-      --blanco-s: #c8c1b8;
-      --dorado: #c9a84c;
-      --dorado-c: #e8c96d;
-      --t: 0.3s cubic-bezier(0.4,0,0.2,1);
+      --verde:       #007A4D;
+      --verde-o:     #005C3A;
+      --verde-c:     #E8F5EE;
+      --verde-t:     rgba(0,122,77,0.08);
+      --blanco:      #FAFAF7;
+      --negro:       #111210;
+      --gris:        #6B7280;
+      --gris-c:      #9CA3AF;
+      --overlay:     rgba(0, 32, 18, 0.62);
+      --t:           0.35s cubic-bezier(0.4,0,0.2,1);
+      --outfit:      'Outfit', system-ui, sans-serif;
     }
 
+    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      background: var(--negro);
-      color: var(--blanco-s);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
+      font-family: var(--outfit);
+      font-weight: 400;
+      background: var(--blanco);
+      color: var(--negro);
       overflow-x: hidden;
     }
-
     ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--negro); }
-    ::-webkit-scrollbar-thumb { background: var(--dorado); border-radius: 2px; }
-
+    ::-webkit-scrollbar-track { background: var(--blanco); }
+    ::-webkit-scrollbar-thumb { background: var(--verde); border-radius: 2px; }
     a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-    /* ─── CARGADOR ─── */
-    #loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--negro);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 1.5rem;
-      transition: opacity 0.6s ease;
+    /* ── NAVBAR ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--t), padding var(--t), box-shadow var(--t);
     }
-    #loader.out { opacity: 0; pointer-events: none; }
-    #loader img { width: 160px; height: auto; }
-    .loader-bar { width: 160px; height: 1px; background: var(--gris-o); position: relative; overflow: hidden; }
-    .loader-prog { position: absolute; inset: 0; background: var(--dorado); animation: prog 1.4s ease forwards; }
-    @keyframes prog { from { width: 0; } to { width: 100%; } }
+    .nav.scrolled {
+      background: rgba(250,250,247,0.96);
+      backdrop-filter: blur(12px);
+      padding: 1rem 3rem;
+      box-shadow: 0 1px 0 rgba(0,122,77,0.1);
+    }
+    .nav-logo {
+      height: 36px;
+      transition: opacity var(--t);
+    }
+    .nav-logo:hover { opacity: 0.75; }
+    /* Logo blanco en hero, normal en scroll */
+    .nav:not(.scrolled) .nav-logo { filter: brightness(0) invert(1); }
 
-    /* ─── HERO ─── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.85);
+      transition: color var(--t);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: currentColor;
+      transition: width var(--t);
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav.scrolled .nav-links a { color: var(--negro); }
+    .nav-links a:hover { color: rgba(255,255,255,0.6); }
+    .nav.scrolled .nav-links a:hover { color: var(--verde); }
+
+    .nav-contacto {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.55rem 1.4rem;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: #fff;
+      transition: all var(--t);
+    }
+    .nav-contacto:hover {
+      background: #fff;
+      color: var(--verde);
+      border-color: #fff;
+    }
+    .nav.scrolled .nav-contacto {
+      border-color: var(--verde);
+      color: var(--verde);
+    }
+    .nav.scrolled .nav-contacto:hover {
+      background: var(--verde);
+      color: #fff;
+    }
+
+    /* Burger */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .burger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: #fff;
+      transition: background var(--t);
+    }
+    .nav.scrolled .burger span { background: var(--negro); }
+
+    /* ── MENÚ MÓVIL ── */
+    .nav-mobile {
+      display: none;
+      position: fixed; inset: 0; z-index: 99;
+      background: var(--verde-o);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      transition: opacity var(--t);
+    }
+    .nav-mobile a:hover { opacity: 0.6; }
+    .nav-mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      background: none; border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      font-family: var(--outfit);
+      cursor: pointer;
+      letter-spacing: 0.05em;
+    }
+    .nav-mobile-favicon {
+      position: absolute;
+      bottom: 2rem;
+      opacity: 0.08;
+      width: 120px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Video de fondo */
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: var(--verde-o);
+    }
+    .hero-video-wrap iframe {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 177.78vh;
+      height: 56.25vw;
+      min-width: 100%;
+      min-height: 100%;
+      pointer-events: none;
+      border: none;
+    }
+
+    /* Overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: var(--overlay);
+    }
+    /* Degradado suave abajo */
+    .hero-overlay::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to bottom, transparent, rgba(0,32,18,0.4));
+    }
+
+    /* Favicon decorativo en hero */
+    .hero-favicon-deco {
+      position: absolute;
+      z-index: 2;
+      right: -5%;
+      bottom: -8%;
+      width: clamp(280px, 45vw, 560px);
+      opacity: 0.04;
+      filter: brightness(0) invert(1);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Contenido hero */
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      width: 75%;
+      max-width: 960px;
       text-align: center;
-      padding: 6rem 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .hero-logo {
+      height: clamp(48px, 7vw, 80px);
+      filter: brightness(0) invert(1);
+      margin-bottom: 0.5rem;
+    }
+    .hero-titulo {
+      font-size: clamp(2.2rem, 6vw, 5.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+    }
+    .hero-titulo em {
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-blanco {
+      font-family: var(--outfit);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      border-radius: 100px;
+      background: #fff;
+      color: var(--verde-o);
+      border: none;
+      cursor: pointer;
+      transition: all var(--t);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-blanco:hover {
+      background: var(--verde-c);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .btn-ghost-blanco {
+      font-family: var(--outfit);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.8rem 2rem;
+      border-radius: 100px;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: all var(--t);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-ghost-blanco:hover {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: bounce 2.5s ease infinite;
+    }
+    .hero-scroll::before {
+      content: '';
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.25);
+      animation: scrollLine 2.5s ease infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── SECCIÓN STUDIO ── (blanco) */
+    .s-studio {
+      background: var(--blanco);
+      padding: 7rem 3rem;
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%),
-        linear-gradient(180deg, var(--negro) 0%, var(--negro-s) 100%);
+    .s-studio-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
-      background-size: 50px 50px;
+    /* Favicon decorativo */
+    .deco-favicon {
+      position: absolute;
+      right: -3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(200px, 35vw, 400px);
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
     }
-    .hero-content {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1.2rem;
-      max-width: 560px;
-    }
-    .hero-logo { width: 180px; height: auto; margin-bottom: 0.5rem; }
-    .hero-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
+    .s-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--dorado);
+      color: var(--verde);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
     }
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--blanco-s);
-      opacity: 0.75;
-      max-width: 380px;
+    .s-label::before {
+      content: '';
+      width: 28px; height: 1.5px;
+      background: var(--verde);
     }
-    .hero-location {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--gris-t);
+    .s-titulo {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--negro);
+      margin-bottom: 2rem;
+    }
+    .s-titulo .verde { color: var(--verde); }
+    .s-texto {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-weight: 400;
+      line-height: 1.85;
+      color: var(--gris);
+      max-width: 620px;
+    }
+    .s-texto strong { color: var(--negro); font-weight: 600; }
+
+    /* Divisor con favicon */
+    .divisor {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .divisor::before, .divisor::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(0,122,77,0.15);
+    }
+    .divisor-ico {
+      width: 28px;
+      opacity: 0.2;
+      flex-shrink: 0;
     }
 
-    /* ─── LINKS ─── */
-    .links {
-      padding: 3rem 2rem 5rem;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1rem;
-      max-width: 480px; margin: 0 auto;
+    /* ── SECCIÓN REDES ── (verde) */
+    .s-redes {
+      background: var(--verde);
+      padding: 7rem 3rem;
+      position: relative;
+      overflow: hidden;
     }
-    .link-btn {
-      width: 100%;
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem 1.5rem;
-      background: var(--negro-c);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      color: var(--blanco);
-      font-size: 0.92rem;
-      font-weight: 400;
-      letter-spacing: 0.03em;
+    .s-redes-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .s-redes .deco-favicon {
+      filter: brightness(0) invert(1);
+      opacity: 0.05;
+      right: -2rem;
+    }
+    .s-redes .s-label { color: rgba(255,255,255,0.6); }
+    .s-redes .s-label::before { background: rgba(255,255,255,0.4); }
+    .s-redes .s-titulo { color: #fff; }
+    .s-redes .s-titulo em { font-style: italic; font-weight: 400; color: rgba(255,255,255,0.55); }
+
+    /* Botones de redes */
+    .redes-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 3rem;
+      max-width: 600px;
+    }
+    .red-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.8rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      color: #fff;
       transition: all var(--t);
       cursor: pointer;
     }
-    .link-btn:hover {
-      border-color: var(--dorado);
-      background: var(--gris-o);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    .red-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateX(6px);
     }
-    .link-btn .link-icon {
-      width: 38px; height: 38px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+    .red-btn-izq {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .red-btn-ico {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.1rem;
       flex-shrink: 0;
     }
-    .link-btn .link-arrow {
-      margin-left: auto;
-      color: var(--gris-t);
-      font-size: 0.9rem;
+    .red-btn-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .red-btn-info p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+    }
+    .red-btn-arrow {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.35);
       transition: transform var(--t), color var(--t);
     }
-    .link-btn:hover .link-arrow { transform: translateX(3px); color: var(--dorado); }
-
-    .link-icon.ig   { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
-    .link-icon.yt   { background: #ff0000; }
-    .link-icon.tt   { background: #010101; border: 1px solid #333; }
-    .link-icon.li   { background: #0077b5; }
-    .link-icon.x    { background: #000; border: 1px solid #333; }
-
-    .links-divider {
-      width: 100%;
-      display: flex; align-items: center; gap: 1rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gris-t);
-      margin: 0.5rem 0;
-    }
-    .links-divider::before, .links-divider::after {
-      content: ''; flex: 1;
-      height: 1px; background: rgba(255,255,255,0.06);
+    .red-btn:hover .red-btn-arrow {
+      transform: translateX(4px);
+      color: rgba(255,255,255,0.7);
     }
 
-    /* ─── VÍDEOS ─── */
-    .section {
-      padding: 5rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dorado);
-      display: block;
-      margin-bottom: 0.6rem;
-    }
-    .section-titulo {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 600;
-      color: var(--blanco);
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
-    }
-    .section-titulo em { font-style: italic; color: var(--dorado); font-weight: 300; }
-    .divider { width: 48px; height: 2px; background: linear-gradient(90deg, var(--dorado), transparent); margin: 1.2rem 0 2.5rem; }
-
-    .videos-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    .video-wrap {
+    /* ── SECCIÓN CAFÉ ── (blanco) */
+    .s-cafe {
+      background: var(--blanco);
+      padding: 7rem 3rem;
       position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
       overflow: hidden;
-      border-radius: 10px;
-      background: var(--negro-c);
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: border-color var(--t), transform var(--t);
     }
-    .video-wrap:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-3px); }
-    .video-wrap iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-    .video-placeholder {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.8rem; color: var(--gris-t);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem; letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .video-placeholder span { font-size: 2rem; opacity: 0.3; }
-
-    .videos-cta {
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.8rem;
-      border: 1px solid rgba(201,168,76,0.35);
-      border-radius: 6px;
-      color: var(--dorado);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: all var(--t);
-    }
-    .btn-outline:hover { background: var(--dorado); color: var(--negro); border-color: var(--dorado); }
-
-    /* ─── SEPARADOR SECCIÓN ─── */
-    .sep-section { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 0; }
-
-    /* ─── SOBRE MÍ ─── */
-    .sobre {
-      background: var(--negro-s);
-    }
-    .sobre-inner {
-      max-width: 1100px;
+    .s-cafe-inner {
+      max-width: 900px;
       margin: 0 auto;
-      padding: 5rem 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
-    .sobre-texto p {
-      font-size: 0.95rem;
-      line-height: 1.85;
-      margin-bottom: 1.2rem;
-      color: var(--blanco-s);
+    .s-cafe .s-titulo { margin-bottom: 1.5rem; }
+    .s-cafe .s-texto { margin-bottom: 2.5rem; }
+
+    .btn-verde {
+      font-family: var(--outfit);
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 0.9rem 2.2rem;
+      border-radius: 100px;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all var(--t);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    .sobre-texto p:last-child { margin-bottom: 0; }
-    .sobre-texto strong { color: var(--dorado); font-weight: 600; }
-    .sobre-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(201,168,76,0.07);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .stat {
-      background: var(--negro-c);
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-    .stat-num {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: var(--dorado);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .stat-lbl {
-      font-size: 0.75rem;
-      color: var(--gris-t);
-      letter-spacing: 0.06em;
-      line-height: 1.4;
+    .btn-verde:hover {
+      background: var(--verde-o);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,122,77,0.3);
     }
 
-    /* ─── CONTACTO ─── */
-    .contacto {
-      padding: 5rem 2rem;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
+    /* Tarjeta info */
+    .cafe-tarjeta {
+      background: var(--verde-t);
+      border: 1px solid rgba(0,122,77,0.12);
+      border-radius: 20px;
+      padding: 2.5rem;
     }
-    .contacto-desc {
-      font-size: 0.95rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.75;
-    }
-    .form-field {
-      margin-bottom: 1.2rem;
-      text-align: left;
-    }
-    .form-field label {
-      display: block;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
+    .cafe-tarjeta-titulo {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gris-t);
+      color: var(--verde);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .cafe-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0,122,77,0.08);
+    }
+    .cafe-item:last-child { border-bottom: none; }
+    .cafe-item-ico {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(0,122,77,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .cafe-item h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--negro);
+      margin-bottom: 0.2rem;
+    }
+    .cafe-item p {
+      font-size: 0.82rem;
+      color: var(--gris);
+      line-height: 1.5;
+    }
+
+    /* ── SECCIÓN CONTACTO ── (verde oscuro) */
+    .s-contacto {
+      background: var(--verde-o);
+      padding: 7rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .s-contacto-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .s-contacto .s-label { color: rgba(255,255,255,0.5); }
+    .s-contacto .s-label::before { background: rgba(255,255,255,0.3); }
+    .s-contacto .s-titulo { color: #fff; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .s-contacto .s-texto { color: rgba(255,255,255,0.55); max-width: 100%; }
+    .s-contacto .deco-favicon { filter: brightness(0) invert(1); opacity: 0.04; }
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
       margin-bottom: 0.5rem;
     }
-    .form-field input,
-    .form-field textarea,
-    .form-field select {
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
       width: 100%;
-      background: var(--negro-c);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 6px;
-      padding: 0.85rem 1rem;
-      color: var(--blanco);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      color: #fff;
+      font-family: var(--outfit);
+      font-size: 0.95rem;
+      font-weight: 400;
       outline: none;
-      transition: border-color var(--t);
+      transition: border-color var(--t), background var(--t);
+      -webkit-appearance: none;
     }
-    .form-field input:focus,
-    .form-field textarea:focus,
-    .form-field select:focus { border-color: var(--dorado); }
-    .form-field textarea { resize: vertical; min-height: 110px; }
-    .form-field select option { background: var(--negro-c); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-    .btn-gold {
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--verde-o); color: #fff; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .btn-form {
       width: 100%;
-      padding: 0.95rem;
-      background: var(--dorado);
-      color: var(--negro);
-      border: none;
-      border-radius: 6px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.88rem;
+      font-family: var(--outfit);
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      padding: 1rem;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--verde-o);
+      border: none;
       cursor: pointer;
       transition: all var(--t);
       margin-top: 0.5rem;
+      letter-spacing: 0.01em;
     }
-    .btn-gold:hover { background: var(--dorado-c); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+    .btn-form:hover {
+      background: var(--verde-c);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
 
-    /* ─── FOOTER ─── */
-    .footer {
-      background: var(--negro-c);
-      border-top: 1px solid rgba(201,168,76,0.07);
-      padding: 2rem;
-      text-align: center;
+    /* ── FOOTER ── */
+    footer {
+      background: var(--negro);
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    .footer p {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      color: var(--gris-t);
+    .footer-logo {
+      height: 28px;
+      filter: brightness(0) invert(0.35);
     }
-    .footer a { color: var(--gris-t); transition: color var(--t); }
-    .footer a:hover { color: var(--dorado); }
+    .footer-copy {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-legal a {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      transition: color var(--t);
+    }
+    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .videos-grid { grid-template-columns: 1fr; }
-      .sobre-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .sobre-stats { grid-template-columns: 1fr 1fr; }
+    /* ── ANIMACIONES ── */
+    .anim-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .anim-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+    .anim-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav { padding: 1.2rem 1.5rem; }
+      .nav.scrolled { padding: 0.9rem 1.5rem; }
+      .nav-links, .nav-contacto { display: none; }
+      .burger { display: flex; }
+      .hero-content { width: 90%; }
+      .s-studio, .s-redes, .s-cafe, .s-contacto { padding: 5rem 1.5rem; }
+      .s-cafe-inner, .s-contacto-inner { grid-template-columns: 1fr; gap: 3rem; }
       .form-row { grid-template-columns: 1fr; }
-      .hero-logo { width: 140px; }
+      footer { flex-direction: column; text-align: center; }
     }
-    @media (max-width: 480px) {
-      .links { padding: 2rem 1.2rem 4rem; }
-      .section { padding: 4rem 1.2rem; }
-      .contacto { padding: 4rem 1.2rem; }
+    @media (max-width: 600px) {
+      .hero-titulo { letter-spacing: -0.02em; }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .redes-lista { max-width: 100%; }
     }
   </style>
 </head>
 <body>
 
-<!-- CARGADOR -->
-<div id="loader">
-  <img src="img/logo-noegmedia.svg" alt="NoéGMedia">
-  <div class="loader-bar"><div class="loader-prog"></div></div>
+<!-- ══ NAVBAR ══ -->
+<nav class="nav" id="nav">
+  <a href="index.html">
+    <img src="img/logo-noegmedia.svg" alt="NoéGMedia" class="nav-logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="sobre-noegmedia.html">Sobre NoéGMedia</a></li>
+    <li><a href="#contacto" class="nav-contacto">Contacto</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ MENÚ MÓVIL ══ -->
+<div class="nav-mobile" id="nav-mobile">
+  <button class="nav-mobile-close" id="close-nav">cerrar ✕</button>
+  <a href="index.html"         onclick="closeMenu()">Inicio</a>
+  <a href="blog.html"          onclick="closeMenu()">Blog</a>
+  <a href="sobre-noegmedia.html" onclick="closeMenu()">Sobre NoéGMedia</a>
+  <a href="#contacto"          onclick="closeMenu()">Contacto</a>
+  <img src="img/favicon.svg" alt="" class="nav-mobile-favicon" aria-hidden="true">
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <div class="hero-grid"></div>
+<!-- ══════════════════════════════════════
+     SECCIÓN 1 — HERO
+══════════════════════════════════════ -->
+<section class="hero" id="inicio">
+
+  <!-- Vídeo de fondo YouTube -->
+  <!-- Sustituye TU_ID_VIDEO por el ID de tu vídeo (lo que va después de ?v= en la URL) -->
+  <div class="hero-video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/TU_ID_VIDEO?autoplay=1&mute=1&loop=1&playlist=TU_ID_VIDEO&controls=0&showinfo=0&rel=0&playsinline=1&disablekb=1&iv_load_policy=3&modestbranding=1"
+      title="NoéGMedia showreel"
+      allow="autoplay; fullscreen"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- Overlay oscuro -->
+  <div class="hero-overlay"></div>
+
+  <!-- Favicon decorativo de fondo -->
+  <img src="img/favicon.svg" alt="" class="hero-favicon-deco" aria-hidden="true">
+
+  <!-- Contenido -->
   <div class="hero-content">
-    <img src="img/logo-noegmedia.svg" alt="Noé G. — NoéGMedia" class="hero-logo">
-    <span class="hero-tag">Creativo Audiovisual</span>
-    <p class="hero-desc">Streaming, filmmaking y contenido digital. Desde Marbella para donde haga falta.</p>
-    <span class="hero-location">📍 Marbella · Andalucía · España</span>
+    <img src="img/logo-noegmedia.svg" alt="NoéGMedia" class="hero-logo">
+    <h1 class="hero-titulo">
+      Un estudio creativo<br>audiovisual <em>de verdad</em>
+    </h1>
+    <p class="hero-sub">
+      Spots, contenido creativo y realizaciones multicámara desde Marbella, Andalucía.
+    </p>
+    <div class="hero-cta">
+      <a href="#redes" class="btn-blanco">Nuestro contenido →</a>
+      <a href="#contacto" class="btn-ghost-blanco">Hablemos</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll">scroll</div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 2 — EL ESTUDIO
+══════════════════════════════════════ -->
+<section class="s-studio" id="estudio">
+  <img src="img/favicon.svg" alt="" class="deco-favicon" aria-hidden="true">
+  <div class="s-studio-inner">
+    <div class="s-label anim-up">Marbella, Andalucía</div>
+    <h2 class="s-titulo anim-up anim-delay-1">
+      Un estudio audiovisual<br>
+      <span class="verde">totalmente creativo</span>
+    </h2>
+    <p class="s-texto anim-up anim-delay-2">
+      No, no nos gastamos dinerales en equipos, ni presumimos de nada.
+      Porque trabajamos todo de manera <strong>artesanal y con total libertad y creatividad</strong>.
+      Lo mismo te hacemos un spot que cubrimos un evento en directo con tres cámaras.
+      Sin empresa, sin estructura, sin corsés.
+    </p>
   </div>
 </section>
 
-<!-- ═══ LINKS ═══ -->
-<div class="links">
-
-  <a href="https://instagram.com/noegmedia" target="_blank" rel="noopener noreferrer" class="link-btn">
-    <div class="link-icon ig">📸</div>
-    <div>
-      <div style="font-weight:600;font-size:0.95rem">Instagram</div>
-      <div style="font-size:0.78rem;color:var(--gris-t);margin-top:0.1rem">Posts rápidos y día a día</div>
-    </div>
-    <span class="link-arrow">→</span>
-  </a>
-
-  <a href="https://youtube.com/@noegmedia" target="_blank" rel="noopener noreferrer" class="link-btn">
-    <div class="link-icon yt">▶</div>
-    <div>
-      <div style="font-weight:600;font-size:0.95rem">YouTube</div>
-      <div style="font-size:0.78rem;color:var(--gris-t);margin-top:0.1rem">Vídeos y producciones</div>
-    </div>
-    <span class="link-arrow">→</span>
-  </a>
-
-  <a href="https://tiktok.com/@noegmedia" target="_blank" rel="noopener noreferrer" class="link-btn">
-    <div class="link-icon tt">♪</div>
-    <div>
-      <div style="font-weight:600;font-size:0.95rem">TikTok</div>
-      <div style="font-size:0.78rem;color:var(--gris-t);margin-top:0.1rem">Contenido creativo y experimental</div>
-    </div>
-    <span class="link-arrow">→</span>
-  </a>
-
-  <div class="links-divider">También en</div>
-
-  <a href="https://www.linkedin.com/company/noegmedia/" target="_blank" rel="noopener noreferrer" class="link-btn">
-    <div class="link-icon li">in</div>
-    <div style="font-weight:400;font-size:0.9rem">LinkedIn</div>
-    <span class="link-arrow">→</span>
-  </a>
-
-  <a href="https://x.com/noegmedia" target="_blank" rel="noopener noreferrer" class="link-btn">
-    <div class="link-icon x">𝕏</div>
-    <div style="font-weight:400;font-size:0.9rem">Twitter / X</div>
-    <span class="link-arrow">→</span>
-  </a>
-
+<div class="divisor">
+  <img src="img/favicon.svg" alt="" class="divisor-ico" aria-hidden="true">
 </div>
 
-<!-- ═══ VÍDEOS ═══ -->
-<hr class="sep-section">
-<div class="section">
-  <span class="section-label">Portfolio</span>
-  <h2 class="section-titulo">Últimos <em>vídeos</em></h2>
-  <div class="divider"></div>
 
-  <div class="videos-grid">
-    <!-- Sustituye ID_VIDEO_1, ID_VIDEO_2... por los IDs reales de tus vídeos de YouTube -->
-    <!-- El ID es lo que va después de ?v= en la URL del vídeo -->
+<!-- ══════════════════════════════════════
+     SECCIÓN 3 — REDES
+══════════════════════════════════════ -->
+<section class="s-redes" id="redes">
+  <img src="img/favicon.svg" alt="" class="deco-favicon" aria-hidden="true">
+  <div class="s-redes-inner">
+    <div class="s-label anim-up">Encuéntranos</div>
+    <h2 class="s-titulo anim-up anim-delay-1">
+      Nuestro contenido,<br>
+      <em>más claro que el agua de Sierra Blanca</em>
+    </h2>
 
-    <div class="video-wrap">
-      <div class="video-placeholder">
-        <span>▶</span>
-        Añade tu ID de YouTube
-      </div>
-      <!-- Cuando tengas el ID, descomenta esto y borra el placeholder:
-      <iframe src="https://www.youtube.com/embed/ID_VIDEO_1"
-        title="Vídeo NoéGMedia"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen loading="lazy"></iframe>
-      -->
-      <iframe src="https://www.youtube.com/watch?v=vOPjvm71mcU"
-        title="NoéGMedia - La Feria de Marbella"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen loading="lazy"></iframe>
-        
-    </div>
+    <div class="redes-lista">
+      <a href="https://youtube.com/@noegmedia" target="_blank" rel="noopener noreferrer" class="red-btn anim-up anim-delay-1">
+        <div class="red-btn-izq">
+          <div class="red-btn-ico">▶</div>
+          <div class="red-btn-info">
+            <h3>Nuestros vídeos</h3>
+            <p>youtube.com/@noegmedia</p>
+          </div>
+        </div>
+        <span class="red-btn-arrow">→</span>
+      </a>
 
-    <div class="video-wrap">
-      <div class="video-placeholder">
-        <span>▶</span>
-        Añade tu ID de YouTube
-      </div>
-      <!-- <iframe src="https://www.youtube.com/embed/ID_VIDEO_2" ... ></iframe> -->
-    </div>
+      <a href="https://instagram.com/noegmedia" target="_blank" rel="noopener noreferrer" class="red-btn anim-up anim-delay-2">
+        <div class="red-btn-izq">
+          <div class="red-btn-ico">📸</div>
+          <div class="red-btn-info">
+            <h3>Nuestras fotos</h3>
+            <p>instagram.com/noegmedia</p>
+          </div>
+        </div>
+        <span class="red-btn-arrow">→</span>
+      </a>
 
-    <div class="video-wrap">
-      <div class="video-placeholder">
-        <span>▶</span>
-        Añade tu ID de YouTube
-      </div>
-      <!-- <iframe src="https://www.youtube.com/embed/ID_VIDEO_3" ... ></iframe> -->
-    </div>
+      <a href="https://tiktok.com/@noegmedia" target="_blank" rel="noopener noreferrer" class="red-btn anim-up anim-delay-3">
+        <div class="red-btn-izq">
+          <div class="red-btn-ico">♪</div>
+          <div class="red-btn-info">
+            <h3>Nuestra creatividad al límite</h3>
+            <p>tiktok.com/@noegmedia</p>
+          </div>
+        </div>
+        <span class="red-btn-arrow">→</span>
+      </a>
 
-    <div class="video-wrap">
-      <div class="video-placeholder">
-        <span>▶</span>
-        Añade tu ID de YouTube
-      </div>
-      <!-- <iframe src="https://www.youtube.com/embed/ID_VIDEO_4" ... ></iframe> -->
+      <a href="https://x.com/noegmedia" target="_blank" rel="noopener noreferrer" class="red-btn anim-up anim-delay-4">
+        <div class="red-btn-izq">
+          <div class="red-btn-ico">𝕏</div>
+          <div class="red-btn-info">
+            <h3>Nuestras novedades</h3>
+            <p>x.com/noegmedia</p>
+          </div>
+        </div>
+        <span class="red-btn-arrow">→</span>
+      </a>
     </div>
   </div>
+</section>
 
-  <div class="videos-cta">
-    <a href="https://youtube.com/@noegmedia" target="_blank" rel="noopener noreferrer" class="btn-outline">
-      Ver todos los vídeos en YouTube →
-    </a>
-  </div>
-</div>
 
-<!-- ═══ SOBRE MÍ ═══ -->
-<hr class="sep-section">
-<div class="sobre">
-  <div class="sobre-inner">
-    <div class="sobre-texto">
-      <span class="section-label">Sobre mí</span>
-      <h2 class="section-titulo" style="margin-bottom:1.2rem">Noé G.<br><em>Marbella de toda la vida</em></h2>
-      <p>Creativo audiovisual con experiencia en <strong>todas las televisiones locales de Marbella</strong>: RTVMarbella, M95 Televisión, OndaluzTV y 101TV. Cámara, realización, edición, dirección... y lo que haga falta.</p>
-      <p>Me muevo igual de bien en un streaming multicámara de un partido de pádel que en el rodaje de un spot o en el montaje de un documental. <strong>Sin encasillarme, sin límites.</strong></p>
-      <p>Formación en Realización Audiovisual (CFGS) y más de una década trabajando con imagen y sonido en Marbella y la Costa del Sol.</p>
+<!-- ══════════════════════════════════════
+     SECCIÓN 4 — CAFÉ O CERVEZA
+══════════════════════════════════════ -->
+<section class="s-cafe">
+  <img src="img/favicon.svg" alt="" class="deco-favicon" aria-hidden="true">
+  <div class="s-cafe-inner">
+    <div class="anim-up">
+      <div class="s-label">Sobre nosotros</div>
+      <h2 class="s-titulo">
+        Vamos a sentarnos a hablar con una buena<br>
+        <span class="verde">cerveza o café</span>
+      </h2>
+      <p class="s-texto">
+        Lo suyo es echar una cerveza o café y explicarte qué es NoéGMedia.
+        Pero de mientras, te invito a visitar la página Sobre NoéGMedia.
+      </p>
+      <br>
+      <a href="sobre-noegmedia.html" class="btn-verde">
+        Sobre NoéGMedia →
+      </a>
     </div>
-    <div class="sobre-stats">
-      <div class="stat">
-        <div class="stat-num">4+</div>
-        <div class="stat-lbl">Televisiones de Marbella</div>
+
+    <div class="cafe-tarjeta anim-up anim-delay-2">
+      <div class="cafe-tarjeta-titulo">
+        <img src="img/favicon.svg" alt="" style="width:16px;opacity:0.5"> Lo que hacemos
       </div>
-      <div class="stat">
-        <div class="stat-num">100+</div>
-        <div class="stat-lbl">Piezas de informativo</div>
+      <div class="cafe-item">
+        <div class="cafe-item-ico">🎬</div>
+        <div>
+          <h4>Spots y publicidad</h4>
+          <p>Para TV, redes sociales o donde haga falta.</p>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">10+</div>
-        <div class="stat-lbl">Años con imagen y sonido</div>
+      <div class="cafe-item">
+        <div class="cafe-item-ico">📡</div>
+        <div>
+          <h4>Realización multicámara</h4>
+          <p>Eventos en directo con calidad televisiva.</p>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">∞</div>
-        <div class="stat-lbl">Ganas de crear</div>
+      <div class="cafe-item">
+        <div class="cafe-item-ico">✦</div>
+        <div>
+          <h4>Contenido creativo</h4>
+          <p>Documentales, videoclips, reportajes, lo que sea.</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ═══ CONTACTO ═══ -->
-<hr class="sep-section">
-<div class="contacto">
-  <span class="section-label">Contacto</span>
-  <h2 class="section-titulo" style="margin-bottom:1rem">¿Hablamos?</h2>
-  <p class="contacto-desc">Cuéntame qué tienes en mente. Respondo en menos de 24 horas.</p>
 
-  <form action="https://formspree.io/f/mnjwargd" method="POST">
-    <input type="hidden" name="_subject" value="Nuevo mensaje desde noegmedia.es">
-    <input type="hidden" name="_next" value="https://noegmedia.es">
-
-    <div class="form-row">
-      <div class="form-field">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+<!-- ══════════════════════════════════════
+     SECCIÓN 5 — CONTACTO
+══════════════════════════════════════ -->
+<section class="s-contacto" id="contacto">
+  <img src="img/favicon.svg" alt="" class="deco-favicon" aria-hidden="true">
+  <div class="s-contacto-inner">
+    <div class="anim-up">
+      <div class="s-label">Contacto</div>
+      <h2 class="s-titulo">
+        ¿Hablamos?
+      </h2>
+      <p class="s-texto" style="margin-bottom:2rem">
+        Cuéntame qué tienes en mente. Sin formulismos, sin largos presupuestos. Respondo en menos de 24h.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.8rem">
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:0.7rem">
+          <span>📍</span> Marbella, Málaga, Andalucía
+        </div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:0.7rem">
+          <span>📱</span> @noegmedia en todas las redes
+        </div>
       </div>
-      <div class="form-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+    </div>
+
+    <form action="https://formspree.io/f/mnjwargd" method="POST" class="anim-up anim-delay-1">
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde noegmedia.es">
+      <input type="hidden" name="_next" value="https://noegmedia.es">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+        </div>
       </div>
-    </div>
 
-    <div class="form-field">
-      <label for="asunto">¿De qué va?</label>
-      <select id="asunto" name="asunto">
-        <option value="">Selecciona...</option>
-        <option value="streaming">Streaming de evento</option>
-        <option value="filmmaking">Filmmaking / Producción</option>
-        <option value="contenido">Contenido digital</option>
-        <option value="colaboracion">Colaboración</option>
-        <option value="otro">Otra cosa</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="asunto">¿De qué va?</label>
+        <select id="asunto" name="asunto">
+          <option value="">Elige una opción...</option>
+          <option value="spot">Spot o publicidad</option>
+          <option value="streaming">Realización multicámara / streaming</option>
+          <option value="contenido">Contenido creativo</option>
+          <option value="colaboracion">Colaboración</option>
+          <option value="otra">Otra cosa</option>
+        </select>
+      </div>
 
-    <div class="form-field">
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" placeholder="Cuéntame..." required></textarea>
-    </div>
+      <div class="form-group">
+        <label for="mensaje">Cuéntame</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Dime qué tienes en mente..." required></textarea>
+      </div>
 
-    <button type="submit" class="btn-gold">Enviar mensaje</button>
-  </form>
-</div>
+      <button type="submit" class="btn-form">Enviar →</button>
+    </form>
+  </div>
+</section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-  <p>
-    © 2026 Noé G. · NoéGMedia · Marbella ·
-    <a href="legal/privacidad-cookies.html">Privacidad</a> ·
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <img src="img/logo-noegmedia.svg" alt="NoéGMedia" class="footer-logo">
+  <span class="footer-copy">© 2026 NoéGMedia · Marbella, Andalucía</span>
+  <div class="footer-legal">
+    <a href="legal/privacidad-cookies.html">Privacidad</a>
     <a href="legal/terminos-servicios.html">Términos</a>
-  </p>
+  </div>
 </footer>
 
+
 <script>
-  // Cargador
-  window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('loader').classList.add('out'), 1300);
+  // ── NAVBAR SCROLL ──
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 80);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ── MENÚ MÓVIL ──
+  function closeMenu() {
+    document.getElementById('nav-mobile').classList.remove('open');
+  }
+  document.getElementById('burger').addEventListener('click', () => {
+    document.getElementById('nav-mobile').classList.add('open');
   });
+  document.getElementById('close-nav').addEventListener('click', closeMenu);
+
+  // ── ANIMACIONES SCROLL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.anim-up').forEach(el => observer.observe(el));
 </script>
 
 </body>

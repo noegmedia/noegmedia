@@ -3,88 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Términos y Condiciones Web - NoéGMedia</title>
+  <title>Términos y Condiciones Web — NoéGMedia</title>
   <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--verde:#007A4D;--verde-o:#005C3A;--blanco:#FAFAF7;--negro:#111210;--gris:#6B7280;--t:0.3s ease}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',system-ui,sans-serif;background:var(--blanco);color:var(--negro)}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--verde);border-radius:2px}
+    a{color:var(--verde);text-decoration:none}a:hover{opacity:0.75}
+    img{max-width:100%;display:block}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(250,250,247,0.96);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,122,77,0.1)}
+    .nav-logo{height:32px}
+    .nav-back{font-size:0.85rem;font-weight:600;padding:0.55rem 1.4rem;border-radius:100px;border:1.5px solid var(--verde);color:var(--verde);transition:all var(--t)}
+    .nav-back:hover{background:var(--verde);color:#fff}
+    .page-hero{padding:8rem 3rem 4rem;background:var(--verde);position:relative;overflow:hidden}
+    .page-hero-deco{position:absolute;right:-2rem;bottom:-3rem;width:280px;opacity:0.06;filter:brightness(0) invert(1);pointer-events:none}
+    .page-hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
+    .s-label{font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem}
+    .s-label::before{content:'';width:22px;height:1.5px;background:rgba(255,255,255,0.35)}
+    .page-titulo{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1;letter-spacing:-0.03em;color:#fff;margin-bottom:1rem}
+    .page-fecha{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+    .contenido{max-width:760px;margin:0 auto;padding:5rem 3rem 6rem}
+    h2{font-size:1.1rem;font-weight:900;color:var(--negro);margin:2.5rem 0 0.8rem;padding-left:0.9rem;border-left:3px solid var(--verde)}
+    p{font-size:0.95rem;line-height:1.85;color:var(--gris);margin-bottom:0.8rem}
+    p strong{color:var(--negro);font-weight:600}
+    .volver{display:inline-flex;align-items:center;gap:0.5rem;margin-top:3rem;font-size:0.88rem;font-weight:600;padding:0.8rem 1.8rem;border-radius:100px;background:var(--verde);color:#fff;transition:all var(--t)}
+    .volver:hover{background:var(--verde-o);transform:translateY(-2px)}
+    footer{background:var(--negro);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-logo{height:24px;filter:brightness(0) invert(0.35)}
+    .footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.25)}
+    .footer-legal{display:flex;gap:1.5rem}
+    .footer-legal a{font-size:0.72rem;color:rgba(255,255,255,0.25);transition:color var(--t)}
+    .footer-legal a:hover{color:rgba(255,255,255,0.6)}
+    @media(max-width:768px){.nav{padding:1rem 1.5rem}.page-hero,.contenido{padding-left:1.5rem;padding-right:1.5rem}footer{flex-direction:column;text-align:center}}
+  </style>
 </head>
 <body>
-
-<div id="cargador">
-  <div class="cargador-logo">Noé<span>G</span>Media</div>
-  <div class="cargador-barra"><div class="cargador-progreso"></div></div>
-</div>
-
-<nav class="navbar" id="navbar">
-  <a href="../index.html" class="navbar-logo">Noé<span>G</span>Media</a>
-  <ul class="navbar-menu">
-    <li><a href="../index.html">Inicio</a></li>
-    <li><a href="../contacto.html"><span class="btn btn-primario" style="padding:0.55rem 1.3rem;font-size:0.82rem">Contacto</span></a></li>
-  </ul>
-  <div class="navbar-hamburguesa" id="hamburguesa"><span></span><span></span><span></span></div>
+<nav class="nav">
+  <a href="../index.html"><img src="../img/logo-noegmedia.svg" alt="NoéGMedia" class="nav-logo"></a>
+  <a href="../index.html" class="nav-back">← Volver al inicio</a>
 </nav>
-
-<div class="nav-movil" id="nav-movil">
-  <button class="nav-movil-cerrar" id="cerrar-nav">✕</button>
-  <a href="../index.html">Inicio</a>
-  <a href="../contacto.html">Contacto</a>
-</div>
-
-<section style="padding: 8rem 0 5rem">
-  <div class="contenedor">
-    <div class="breadcrumb" style="margin-bottom:2rem">
-      <a href="../index.html">Inicio</a>
-      <span class="sep">›</span>
-      <span>Legal</span>
-      <span class="sep">›</span>
-      <span>Términos y Condiciones Web</span>
-    </div>
-    <div style="max-width:800px">
-      <span class="etiqueta">Legal</span>
-      <h1 style="font-size:2.5rem;margin-bottom:2rem">Términos y Condiciones<br>de la Web</h1>
-      <div style="font-size:0.82rem;color:var(--gris-texto);margin-bottom:3rem;font-family:var(--fuente-mono)">Última actualización: Abril 2026</div>
-
-      <div class="articulo-cuerpo">
-        <h2>1. Titularidad del sitio web</h2>
-        <p>El presente sitio web <strong>noegmedia.es</strong> es titularidad de NoéGMedia, con domicilio en Marbella (Málaga, Andalucía, España). El acceso y uso de este sitio web implica la aceptación de los presentes términos y condiciones.</p>
-
-        <h2>2. Objeto del sitio web</h2>
-        <p>Este sitio web tiene como finalidad presentar los servicios audiovisuales de NoéGMedia (streaming multicámara, filmmaking y creative/diseño digital), así como facilitar el contacto con clientes potenciales y publicar contenido informativo relacionado con el sector audiovisual.</p>
-
-        <h2>3. Propiedad intelectual</h2>
-        <p>Todos los contenidos del sitio web (textos, imágenes, diseño, código, logotipos, marcas) son propiedad de NoéGMedia o se utilizan con la correspondiente autorización. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin consentimiento expreso y por escrito del titular.</p>
-
-        <h2>4. Uso del sitio web</h2>
-        <p>El usuario se compromete a hacer un uso lícito del sitio web, sin incurrir en actividades contrarias a la ley, la moral o el orden público. Queda prohibido el uso del sitio web para fines comerciales no autorizados, envío de spam o cualquier actividad que pueda dañar, deshabilitar o deteriorar el sitio.</p>
-
-        <h2>5. Responsabilidad</h2>
-        <p>NoéGMedia no se hace responsable de los daños o perjuicios que pudieran derivarse del uso del sitio web, de la información contenida en él o de enlaces a sitios de terceros. La información publicada tiene carácter meramente informativo y puede modificarse sin previo aviso.</p>
-
-        <h2>6. Enlaces a terceros</h2>
-        <p>Este sitio puede contener enlaces a sitios web de terceros. NoéGMedia no tiene control sobre dichos sitios y no asume responsabilidad alguna por sus contenidos, políticas de privacidad o prácticas.</p>
-
-        <h2>7. Modificaciones</h2>
-        <p>NoéGMedia se reserva el derecho de modificar, suspender o interrumpir el acceso al sitio web en cualquier momento y sin previo aviso, así como de actualizar estos términos y condiciones cuando lo estime oportuno.</p>
-
-        <h2>8. Legislación aplicable</h2>
-        <p>Estos términos y condiciones se rigen por la legislación española vigente. Para cualquier controversia derivada del acceso o uso de este sitio web, las partes se someten a los juzgados y tribunales de Marbella (Málaga), con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
-      </div>
-
-      <div style="margin-top:3rem">
-        <a href="../index.html" class="btn btn-secundario">← Volver al inicio</a>
-      </div>
-    </div>
+<div class="page-hero">
+  <img src="../img/favicon.svg" alt="" class="page-hero-deco" aria-hidden="true">
+  <div class="page-hero-inner">
+    <div class="s-label">Legal</div>
+    <h1 class="page-titulo">Términos y<br>Condiciones Web</h1>
+    <p class="page-fecha">Última actualización: Abril 2026</p>
   </div>
-</section>
+</div>
+<div class="contenido">
+  <h2>1. Titularidad del sitio web</h2>
+  <p>El sitio web <strong>noegmedia.es</strong> es titularidad de NoéGMedia, con domicilio en Marbella (Málaga, Andalucía, España). El acceso y uso implica la aceptación de estos términos.</p>
 
+  <h2>2. Objeto del sitio web</h2>
+  <p>Este sitio presenta la actividad creativa audiovisual de NoéGMedia y facilita el contacto con clientes y colaboradores potenciales.</p>
+
+  <h2>3. Propiedad intelectual</h2>
+  <p>Todos los contenidos (textos, imágenes, diseño, código, logotipos) son propiedad de NoéGMedia o se utilizan con la autorización correspondiente. Queda prohibida su reproducción sin consentimiento expreso y por escrito.</p>
+
+  <h2>4. Uso del sitio web</h2>
+  <p>El usuario se compromete a un uso lícito. Queda prohibido el uso para spam, actividades ilegales o que dañen el funcionamiento del sitio.</p>
+
+  <h2>5. Responsabilidad</h2>
+  <p>NoéGMedia no se responsabiliza de daños derivados del uso del sitio o de enlaces a terceros. La información publicada tiene carácter informativo y puede modificarse sin previo aviso.</p>
+
+  <h2>6. Modificaciones</h2>
+  <p>NoéGMedia se reserva el derecho de modificar o interrumpir el sitio en cualquier momento y de actualizar estos términos cuando lo estime oportuno.</p>
+
+  <h2>7. Legislación aplicable</h2>
+  <p>Estos términos se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales de <strong>Marbella (Málaga)</strong>.</p>
+
+  <a href="../index.html" class="volver">← Volver al inicio</a>
+</div>
 <footer>
-  <div class="contenedor">
-    <div class="footer-bottom" style="padding-top:2rem">
-      <p>© 2026 NoéGMedia · Todos los derechos reservados · Marbella, Málaga</p>
-      <p><a href="privacidad-cookies.html" style="color:var(--gris-texto);font-size:0.8rem">Privacidad</a> · <a href="terminos-servicios.html" style="color:var(--gris-texto);font-size:0.8rem">Términos Servicios</a></p>
-    </div>
+  <img src="../img/logo-noegmedia.svg" alt="NoéGMedia" class="footer-logo">
+  <span class="footer-copy">© 2026 NoéGMedia · Marbella, Andalucía</span>
+  <div class="footer-legal">
+    <a href="privacidad-cookies.html">Privacidad</a>
+    <a href="terminos-servicios.html">Términos Servicios</a>
   </div>
 </footer>
-
-<script src="../js/main.js"></script>
 </body>
 </html>
