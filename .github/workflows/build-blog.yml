@@ -1,0 +1,38 @@
+name: Construir Blog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blog/**.md'
+      - 'build-blog.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Ejecutar script de build
+        run: node build-blog.js
+
+      - name: Subir HTMLs generados
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog/ blog.html index.html
+          git diff --staged --quiet || git commit -m "🤖 Build: blog generado automáticamente"
+          git push
