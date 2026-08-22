@@ -19,7 +19,7 @@ Llevo años perfeccionando un sistema que cabe en dos maletas y permite retransm
 
 El núcleo del sistema es el **Roland VRC-01** emparejado con **AeroCaster en iPad**. El Roland actúa como switcher de vídeo y el AeroCaster gestiona la emisión en tiempo real a YouTube, Facebook o cualquier servidor RTMP.
 
-Las cámaras son una **Fuji X-S20** como principal y dos Canon como secundarias. El audio se capta directamente desde la mesa de mezclas del evento o con micrófono de condensador propio.
+Las cámaras son una **Fuji X-S20** como principal y dos Canon DSLR como secundarias. El audio se capta directamente desde la mesa de mezclas del evento o con micrófono de condensador propio.
 
 La conexión es **5G** — sin depender del WiFi del local, que siempre falla en el momento menos oportuno.
 
