@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="theme-color" content="#007A4D"/>
+  <title>Editor — NoéGMedia</title>
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+
+    :root {
+      --green:        #007A4D;
+      --green-dark:   #005C3A;
+      --green-light:  #E8F5EF;
+      --green-mid:    #C2DDD2;
+      --green-glow:   rgba(0,122,77,0.15);
+      --ink:          #0F1A14;
+      --ink-soft:     #1C2B22;
+      --white:        #FFFFFF;
+      --off-white:    #F8FAF9;
+      --surface:      #F2F7F4;
+      --border:       #D4E4DA;
+      --border-strong:#A8C8B4;
+      --text:         #1A2620;
+      --text-muted:   #4A5E54;
+      --text-faint:   #7A9186;
+      --danger:       #C0392B;
+      --warning:      #E67E22;
+      --font-ui:      'Outfit', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+      --radius:       6px;
+      --transition:   0.2s cubic-bezier(0.4,0,0.2,1);
+      --shadow:       0 2px 16px rgba(0,0,0,0.08);
+      --shadow-lg:    0 8px 40px rgba(0,0,0,0.14);
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--off-white);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      position: fixed; inset: 0;
+      background: var(--ink);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 1000; padding: 32px;
+      transition: opacity 0.4s ease;
+    }
+    #login-screen.hidden { opacity: 0; pointer-events: none; }
+
+    .login-logo {
+      font-family: var(--font-ui);
+      font-size: 26px; font-weight: 900;
+      color: var(--white); margin-bottom: 4px;
+      letter-spacing: -0.04em;
+    }
+    .login-logo span { color: var(--green); }
+    .login-sub {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 40px;
+    }
+    .login-card {
+      background: var(--ink-soft);
+      border: 1px solid rgba(0,122,77,0.3);
+      border-radius: var(--radius);
+      padding: 28px; width: 100%; max-width: 360px;
+    }
+    .login-card h2 {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--green); margin-bottom: 20px;
+    }
+    .login-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .login-field label {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .login-field input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(0,122,77,0.25);
+      border-radius: var(--radius);
+      padding: 11px 14px;
+      font-family: var(--font-mono); font-size: 13px;
+      color: var(--white); outline: none;
+      transition: var(--transition);
+    }
+    .login-field input:focus { border-color: var(--green); background: rgba(0,122,77,0.08); }
+    .login-field input::placeholder { color: rgba(255,255,255,0.2); }
+    .login-hint {
+      font-size: 10px; color: var(--text-faint);
+      line-height: 1.6; margin-bottom: 22px;
+      padding: 10px 12px;
+      background: rgba(0,122,77,0.08);
+      border-radius: var(--radius);
+      border-left: 2px solid var(--green);
+    }
+    .login-hint a { color: var(--green); text-decoration: none; }
+    .btn-login {
+      width: 100%; background: var(--green);
+      border: none; border-radius: var(--radius);
+      padding: 13px; color: var(--white);
+      font-family: var(--font-ui); font-size: 10px;
+      font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-login:hover { background: var(--green-dark); }
+    .login-error {
+      margin-top: 10px; font-size: 11px;
+      color: #e74c3c; text-align: center; display: none;
+    }
+
+    /* ── APP SHELL ── */
+    #app { display: flex; flex-direction: column; height: 100%; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--ink);
+      border-bottom: 2px solid var(--green);
+      height: 52px; flex-shrink: 0;
+      display: flex; align-items: center;
+      padding: 0 14px; gap: 10px;
+      position: relative; z-index: 10;
+    }
+    .topbar-logo {
+      font-family: var(--font-ui);
+      font-size: 14px; font-weight: 900;
+      color: var(--white); white-space: nowrap;
+      letter-spacing: -0.03em;
+    }
+    .topbar-logo span { color: var(--green); }
+    .topbar-badge {
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-faint);
+      background: rgba(255,255,255,0.05);
+      padding: 2px 7px; border-radius: 3px;
+    }
+    .topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); }
+    .topbar-title {
+      flex: 1; font-size: 11px; font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .topbar-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      font-family: var(--font-ui); font-size: 9px;
+      font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border-radius: var(--radius);
+      border: none; cursor: pointer;
+      transition: var(--transition); white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-sm { padding: 7px 13px; }
+    .btn-md { padding: 10px 20px; }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-primary:disabled { background: var(--border-strong); cursor: not-allowed; }
+    .btn-ghost { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    .btn-danger { background: var(--danger); color: var(--white); }
+    .btn-delete { background: rgba(192,57,43,0.1); color: #c0392b; border: 1px solid rgba(192,57,43,0.25); font-family: var(--font-ui); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: var(--radius); padding: 7px 13px; cursor: pointer; transition: var(--transition); }
+    .btn-delete:hover { background: var(--danger); color: white; border-color: var(--danger); }
+    .btn-outline { background: none; color: var(--green); border: 1px solid var(--green-mid); }
+    .btn-outline:hover { background: var(--green-light); }
+
+    /* ── MAIN LAYOUT ── */
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 272px; flex-shrink: 0;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .sidebar.collapsed { transform: translateX(-100%); position: absolute; z-index: 5; height: calc(100% - 52px); }
+    .sidebar-header {
+      padding: 14px; border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 9px;
+    }
+    .sidebar-header-top { display: flex; align-items: center; justify-content: space-between; }
+    .sidebar-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text-faint); }
+    .sidebar-search {
+      width: 100%; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 8px 12px; font-family: var(--font-ui);
+      font-size: 12px; color: var(--text); outline: none; transition: var(--transition);
+    }
+    .sidebar-search:focus { border-color: var(--green); background: var(--white); }
+    .sidebar-search::placeholder { color: var(--text-faint); }
+    .article-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+    .article-list::-webkit-scrollbar { width: 3px; }
+    .article-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .article-item {
+      padding: 11px 14px; cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: var(--transition); position: relative;
+    }
+    .article-item:hover { background: var(--surface); }
+    .article-item.active { background: var(--green-light); border-left-color: var(--green); }
+    .article-item-cat { font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 3px; }
+    .article-item-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+    .article-item-meta { font-size: 9px; color: var(--text-faint); display: flex; gap: 6px; align-items: center; }
+    .draft-badge { background: var(--warning); color: var(--white); font-size: 7px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 5px; border-radius: 2px; }
+    .article-list-empty { padding: 28px 14px; text-align: center; font-size: 12px; color: var(--text-faint); line-height: 1.7; }
+
+    /* ── EDITOR AREA ── */
+    .editor-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--white); }
+
+    /* ── TABS ── */
+    .editor-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; padding: 0 14px; }
+    .tab-btn { font-family: var(--font-ui); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-faint); background: none; border: none; border-bottom: 2px solid transparent; padding: 11px 14px; cursor: pointer; transition: var(--transition); margin-bottom: -1px; }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+    /* ── FRONTMATTER ── */
+    .frontmatter-panel { flex: 1; overflow-y: auto; padding: 22px; display: none; }
+    .frontmatter-panel.active { display: block; }
+    .frontmatter-panel::-webkit-scrollbar { width: 3px; }
+    .frontmatter-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .fm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .fm-field { display: flex; flex-direction: column; gap: 6px; }
+    .fm-field.full { grid-column: 1 / -1; }
+    .fm-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-faint); }
+    .fm-input, .fm-select, .fm-textarea {
+      background: var(--off-white);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 9px 13px; font-family: var(--font-ui);
+      font-size: 13px; font-weight: 400;
+      color: var(--text); outline: none;
+      transition: var(--transition); width: 100%; appearance: none;
+    }
+    .fm-input:focus, .fm-select:focus, .fm-textarea:focus { border-color: var(--green); background: var(--white); box-shadow: 0 0 0 3px var(--green-glow); }
+    .fm-textarea { min-height: 80px; resize: vertical; line-height: 1.6; }
+    .fm-hint { font-size: 10px; color: var(--text-faint); margin-top: 2px; }
+
+    /* Toggle publicado */
+    .fm-toggle { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+    .toggle-switch { width: 44px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer; transition: var(--transition); flex-shrink: 0; }
+    .toggle-switch.on { background: var(--green); }
+    .toggle-switch::after { content: ''; position: absolute; width: 18px; height: 18px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: var(--transition); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    .toggle-switch.on::after { transform: translateX(20px); }
+    .toggle-label { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+
+    /* Emoji selector */
+    .emoji-grid { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .emoji-opt {
+      width: 36px; height: 36px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--off-white);
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .emoji-opt:hover { border-color: var(--green); background: var(--green-light); }
+    .emoji-opt.selected { border-color: var(--green); background: var(--green-light); box-shadow: 0 0 0 2px var(--green-glow); }
+
+    /* ── MARKDOWN EDITOR ── */
+    .markdown-panel { flex: 1; display: none; flex-direction: column; overflow: hidden; }
+    .markdown-panel.active { display: flex; }
+    .md-toolbar { display: flex; gap: 2px; padding: 7px 10px; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; flex-wrap: wrap; }
+    .md-tool { background: none; border: 1px solid transparent; border-radius: 4px; padding: 5px 8px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
+    .md-tool:hover { background: var(--border); color: var(--text); }
+    .md-tool-sep { width: 1px; background: var(--border); margin: 0 4px; }
+    .md-editor-wrap { flex: 1; display: flex; overflow: hidden; }
+    .md-editor {
+      flex: 1; resize: none; border: none; outline: none;
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.7;
+      padding: 20px 24px; color: var(--text);
+      background: var(--white); overflow-y: auto;
+    }
+    .md-preview {
+      flex: 0; width: 0; overflow-y: auto;
+      border-left: 1px solid var(--border);
+      padding: 0; background: var(--off-white);
+      font-size: 14px; line-height: 1.75;
+      transition: flex 0.3s ease, padding 0.3s ease;
+      display: none;
+    }
+    .md-preview.visible { flex: 1; padding: 20px 24px; display: block; }
+    .md-editor-wrap.split-active .md-editor { flex: 1; }
+    .md-preview h1, .md-preview h2, .md-preview h3 { font-family: var(--font-ui); font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; }
+    .md-preview h2 { font-size: 1.2rem; border-left: 3px solid var(--green); padding-left: 0.8rem; }
+    .md-preview p { margin-bottom: 1rem; color: var(--text-muted); }
+    .md-preview strong { color: var(--text); font-weight: 600; }
+    .md-preview blockquote { border-left: 3px solid var(--green); padding: 0.5rem 1rem; background: var(--green-light); margin: 1rem 0; }
+    .md-preview code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface); padding: 0.1em 0.4em; border-radius: 3px; color: var(--green-dark); }
+    .md-preview a { color: var(--green); }
+
+    /* ── PREVIEW TAB ── */
+    .preview-panel { flex: 1; overflow-y: auto; padding: 28px 32px; display: none; font-size: 15px; line-height: 1.8; }
+    .preview-panel.active { display: block; }
+    .preview-panel h1 { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .preview-panel h2 { font-size: 1.2rem; font-weight: 700; margin: 2rem 0 0.6rem; border-left: 3px solid var(--green); padding-left: 0.8rem; }
+    .preview-panel h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .preview-panel p { margin-bottom: 1rem; color: var(--text-muted); }
+    .preview-panel strong { color: var(--text); font-weight: 600; }
+    .preview-panel blockquote { border-left: 3px solid var(--green); padding: 0.8rem 1.2rem; background: var(--green-light); margin: 1.5rem 0; border-radius: 0 var(--radius) var(--radius) 0; }
+    .preview-panel code { font-family: var(--font-mono); font-size: 0.83em; background: var(--surface); padding: 0.15em 0.45em; border-radius: 3px; color: var(--green-dark); }
+    .preview-panel a { color: var(--green); }
+    .preview-panel ul, .preview-panel ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .preview-panel li { margin-bottom: 0.3rem; color: var(--text-muted); }
+
+    /* ── WELCOME ── */
+    .welcome { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+    .welcome-icon { font-size: 60px; opacity: 0.1; margin-bottom: 20px; line-height: 1; color: var(--green); }
+    .welcome h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .welcome p { font-size: 13px; color: var(--text-faint); line-height: 1.7; margin-bottom: 24px; max-width: 280px; }
+
+    /* ── STATUS BAR ── */
+    .statusbar { height: 28px; background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; padding: 0 14px; gap: 16px; flex-shrink: 0; }
+    .status-item { font-size: 10px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.3); white-space: nowrap; }
+    .status-item.green { color: var(--green); }
+    .status-item.warning { color: var(--warning); }
+
+    /* ── MODALS ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--white); border-radius: var(--radius); padding: 26px; width: 100%; max-width: 380px; box-shadow: var(--shadow-lg); }
+    .modal h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; color: var(--ink); }
+    .modal p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 22px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* ── TOASTS ── */
+    #toast-container { position: fixed; bottom: 44px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+    .toast { background: var(--ink); color: var(--white); font-size: 12px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius); border-left: 3px solid var(--green); box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; }
+    .toast.error { border-left-color: var(--danger); }
+    .toast.warning { border-left-color: var(--warning); }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── SPINNER ── */
+    .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    .spinner.visible { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .sidebar { width: 100%; position: absolute; height: calc(100% - 52px - 28px); z-index: 5; }
+      .sidebar.collapsed { transform: translateX(-100%); }
+      .fm-grid { grid-template-columns: 1fr; }
+      .md-preview { display: none !important; }
+    }
+
+    * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="login-screen">
+  <div class="login-logo">Noé<span>G</span>Media</div>
+  <div class="login-sub">Editor del Blog</div>
+  <div class="login-card">
+    <h2>Acceder a GitHub</h2>
+    <div class="login-field">
+      <label>Usuario de GitHub</label>
+      <input type="text" id="gh-user" placeholder="noegmedia" autocomplete="username"/>
+    </div>
+    <div class="login-field">
+      <label>Repositorio</label>
+      <input type="text" id="gh-repo" placeholder="noegmedia" autocomplete="off"/>
+    </div>
+    <div class="login-field">
+      <label>Token personal de GitHub</label>
+      <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="current-password"/>
+    </div>
+    <div class="login-hint">
+      Necesitas un token con permiso <strong style="color:var(--green)">repo</strong>.<br/>
+      Créalo en <a href="https://github.com/settings/tokens/new?scopes=repo&description=NoéGMedia+Editor" target="_blank">GitHub → Settings → Developer settings → Personal access tokens</a>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Entrar →</button>
+    <div class="login-error" id="login-error">Token o repositorio incorrecto</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <button class="btn btn-sm btn-ghost" onclick="toggleSidebar()" title="Artículos">☰</button>
+    <div class="topbar-logo">Noé<span>G</span>Media</div>
+    <span class="topbar-badge">Blog</span>
+    <div class="topbar-divider"></div>
+    <div class="topbar-title" id="topbar-title">Selecciona o crea un artículo</div>
+    <div class="topbar-actions">
+      <button class="btn btn-sm btn-ghost" onclick="newArticle()" title="Nuevo artículo">+ Nuevo</button>
+      <button class="btn btn-sm btn-delete" onclick="confirmDelete()" id="delete-btn" style="display:none;">🗑 Eliminar</button>
+      <button class="btn btn-sm btn-primary" onclick="saveArticle()" id="save-btn" disabled>
+        <div class="spinner" id="save-spinner"></div>
+        <span id="save-label">Publicar</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-header-top">
+          <span class="sidebar-title">Artículos del blog</span>
+          <button class="btn btn-sm btn-outline" onclick="loadArticles()" title="Recargar">↻</button>
+        </div>
+        <input class="sidebar-search" type="text" placeholder="Buscar artículo..." id="search-input" oninput="filterArticles()"/>
+      </div>
+      <div class="article-list" id="article-list">
+        <div class="article-list-empty">Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Editor -->
+    <div class="editor-area" id="editor-area">
+
+      <!-- Welcome -->
+      <div class="welcome" id="welcome-screen">
+        <div class="welcome-icon">✦</div>
+        <h2>Editor del Blog</h2>
+        <p>Selecciona un artículo de la lista o crea uno nuevo para empezar.</p>
+        <button class="btn btn-md btn-primary" onclick="newArticle()">+ Crear primer artículo</button>
+      </div>
+
+      <!-- Editor content -->
+      <div id="editor-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+        <div class="editor-tabs">
+          <button class="tab-btn active" onclick="switchTab('meta')" id="tab-meta">Datos</button>
+          <button class="tab-btn" onclick="switchTab('editor')" id="tab-editor">Escribir</button>
+          <button class="tab-btn" onclick="switchTab('preview')" id="tab-preview">Vista previa</button>
+          <div style="flex:1"></div>
+        </div>
+
+        <!-- META TAB -->
+        <div class="frontmatter-panel active" id="panel-meta">
+          <div class="fm-grid">
+
+            <div class="fm-field full">
+              <label class="fm-label">Título *</label>
+              <input class="fm-input" type="text" id="fm-titulo" placeholder="El título del artículo" oninput="onFieldChange()"/>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Categoría</label>
+              <select class="fm-select" id="fm-categoria" onchange="onFieldChange()">
+                <option value="Streaming">Streaming</option>
+                <option value="Filmmaking">Filmmaking</option>
+                <option value="Producción">Producción</option>
+                <option value="Equipamiento">Equipamiento</option>
+                <option value="Redes Sociales">Redes Sociales</option>
+                <option value="Televisión">Televisión</option>
+                <option value="Diseño Digital">Diseño Digital</option>
+                <option value="Marbella">Marbella</option>
+                <option value="Opinión">Opinión</option>
+              </select>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Fecha</label>
+              <input class="fm-input" type="date" id="fm-fecha" oninput="onFieldChange()"/>
+            </div>
+
+            <div class="fm-field full">
+              <label class="fm-label">Resumen (aparece en la tarjeta y en SEO)</label>
+              <textarea class="fm-textarea" id="fm-resumen" placeholder="Una o dos frases que resuman el artículo..." oninput="onFieldChange()"></textarea>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Emoji</label>
+              <input class="fm-input" type="text" id="fm-emoji" placeholder="📡" oninput="onFieldChange()" style="font-size:1.2rem"/>
+              <div class="emoji-grid" id="emoji-grid"></div>
+              <p class="fm-hint">Se usa como miniatura en la tarjeta del blog</p>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Tags (separados por comas)</label>
+              <input class="fm-input" type="text" id="fm-tags" placeholder="streaming, multicámara, marbella" oninput="onFieldChange()"/>
+              <p class="fm-hint">Ayudan al SEO y a la clasificación</p>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Slug (URL del artículo)</label>
+              <input class="fm-input" type="text" id="fm-slug" placeholder="mi-articulo-sobre-streaming" oninput="onFieldChange()"/>
+              <p class="fm-hint">Se genera automáticamente del título</p>
+            </div>
+
+            <div class="fm-field">
+              <label class="fm-label">Estado</label>
+              <div class="fm-toggle">
+                <div class="toggle-switch" id="pub-toggle" onclick="togglePublicado()"></div>
+                <span class="toggle-label" id="pub-label">Borrador</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- EDITOR TAB -->
+        <div class="markdown-panel" id="panel-editor">
+          <div class="md-toolbar">
+            <button class="md-tool" onclick="insertMd('**','**')" title="Negrita"><b>N</b></button>
+            <button class="md-tool" onclick="insertMd('*','*')" title="Cursiva"><i>C</i></button>
+            <div class="md-tool-sep"></div>
+            <button class="md-tool" onclick="insertMdLine('## ')" title="Título H2">H2</button>
+            <button class="md-tool" onclick="insertMdLine('### ')" title="Subtítulo H3">H3</button>
+            <div class="md-tool-sep"></div>
+            <button class="md-tool" onclick="insertMd('> ','',true)" title="Cita">❝</button>
+            <button class="md-tool" onclick="insertMdLine('- ')" title="Lista">—</button>
+            <button class="md-tool" onclick="insertMd('`','`')" title="Código">&lt;/&gt;</button>
+            <button class="md-tool" onclick="insertMd('[','](url)')" title="Enlace">🔗</button>
+            <div class="md-tool-sep"></div>
+            <button class="md-tool" onclick="toggleSplit()" id="split-btn" title="Vista dividida">⊟</button>
+          </div>
+          <div class="md-editor-wrap" id="md-editor-wrap">
+            <textarea class="md-editor" id="md-editor" placeholder="Escribe aquí en Markdown...&#10;&#10;## Introducción&#10;&#10;Tu contenido..." oninput="onEditorChange()"></textarea>
+            <div class="md-preview" id="md-preview"></div>
+          </div>
+        </div>
+
+        <!-- PREVIEW TAB -->
+        <div class="preview-panel" id="panel-preview"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <div class="status-item" id="status-repo">— Sin conexión</div>
+    <div class="status-item" id="status-words">0 palabras</div>
+    <div class="status-item" id="status-read">0 min lectura</div>
+    <div style="flex:1"></div>
+    <div class="status-item" id="status-saved">Sin cambios</div>
+  </div>
+
+</div>
+
+<!-- MODAL eliminar -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <h3>Eliminar artículo</h3>
+    <p>Esta acción eliminará el archivo del repositorio de GitHub y no se puede deshacer fácilmente.</p>
+    <div class="modal-actions">
+      <button class="btn btn-md btn-outline" onclick="closeModal('delete-modal')" style="color:var(--text);">Cancelar</button>
+      <button class="btn btn-md btn-danger" onclick="deleteArticle()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+// ── EMOJIS SUGERIDOS ──────────────────────────────────
+const EMOJIS = ['📡','🎬','🎙️','📷','💻','🎨','📺','🎞️','🌊','🚀','✦','🎥','📱','🎤','🏔️','🌅'];
+
+function initEmojiGrid() {
+  const grid = document.getElementById('emoji-grid');
+  grid.innerHTML = EMOJIS.map(e =>
+    `<button class="emoji-opt" onclick="selectEmoji('${e}')" title="${e}">${e}</button>`
+  ).join('');
+}
+
+function selectEmoji(emoji) {
+  document.getElementById('fm-emoji').value = emoji;
+  document.querySelectorAll('.emoji-opt').forEach(btn => {
+    btn.classList.toggle('selected', btn.textContent === emoji);
+  });
+  onFieldChange();
+}
+
+initEmojiGrid();
+
+// ── STATE ─────────────────────────────────────────────
+const STATE = {
+  token: '', user: '', repo: '', branch: 'main',
+  articles: [], currentFile: null, currentSha: null,
+  isPublicado: false, splitView: false, unsaved: false,
+};
+
+// ── LOCAL STORAGE ─────────────────────────────────────
+function saveAuth() {
+  localStorage.setItem('nm_user',  STATE.user);
+  localStorage.setItem('nm_repo',  STATE.repo);
+  localStorage.setItem('nm_token', STATE.token);
+}
+function loadAuth() {
+  STATE.user  = localStorage.getItem('nm_user')  || '';
+  STATE.repo  = localStorage.getItem('nm_repo')  || '';
+  STATE.token = localStorage.getItem('nm_token') || '';
+  if (STATE.user) document.getElementById('gh-user').value = STATE.user;
+  if (STATE.repo) document.getElementById('gh-repo').value = STATE.repo;
+}
+
+// ── GITHUB API ────────────────────────────────────────
+async function ghFetch(path, options = {}) {
+  const url = `https://api.github.com/repos/${STATE.user}/${STATE.repo}${path}`;
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      'Authorization': `token ${STATE.token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `HTTP ${res.status}`);
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+async function ghGetFile(path)                    { return ghFetch(`/contents/${path}`); }
+async function ghListDir(path)                    { return ghFetch(`/contents/${path}`); }
+async function ghPutFile(path, content, msg, sha) {
+  const body = { message: msg, content: btoa(unescape(encodeURIComponent(content))), branch: STATE.branch };
+  if (sha) body.sha = sha;
+  return ghFetch(`/contents/${path}`, { method: 'PUT', body: JSON.stringify(body) });
+}
+async function ghDeleteFile(path, sha, msg) {
+  return ghFetch(`/contents/${path}`, { method: 'DELETE', body: JSON.stringify({ message: msg, sha, branch: STATE.branch }) });
+}
+
+// ── LOGIN ─────────────────────────────────────────────
+async function doLogin() {
+  const user  = document.getElementById('gh-user').value.trim();
+  const repo  = document.getElementById('gh-repo').value.trim();
+  const token = document.getElementById('gh-token').value.trim();
+  if (!user || !repo || !token) { showLoginError('Rellena todos los campos'); return; }
+
+  STATE.user = user; STATE.repo = repo; STATE.token = token;
+  try {
+    await ghFetch('/branches/main');
+    onLoggedIn();
+  } catch {
+    try {
+      await ghFetch('/branches/master');
+      STATE.branch = 'master';
+      onLoggedIn();
+    } catch {
+      showLoginError('No se pudo conectar. Revisa el token y el repositorio.');
+    }
+  }
+}
+
+function onLoggedIn() {
+  saveAuth();
+  document.getElementById('login-screen').classList.add('hidden');
+  const el = document.getElementById('status-repo');
+  el.textContent = `${STATE.user}/${STATE.repo}`;
+  el.classList.add('green');
+  loadArticles();
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+// Auto-login
+loadAuth();
+if (STATE.token && STATE.user && STATE.repo) {
+  document.getElementById('gh-token').value = '••••••••••••';
+  setTimeout(doLogin, 80);
+}
+
+// ── LOAD ARTICLES ─────────────────────────────────────
+async function loadArticles() {
+  try {
+    const files = await ghListDir('blog');
+    STATE.articles = files.filter(f => f.name.endsWith('.md') && !f.name.startsWith('_'));
+    renderArticleList();
+  } catch (e) {
+    showToast('Error cargando artículos: ' + e.message, 'error');
+    document.getElementById('article-list').innerHTML =
+      '<div class="article-list-empty">No se pudo cargar la carpeta <code>blog/</code></div>';
+  }
+}
+
+function renderArticleList(filter = '') {
+  const list = document.getElementById('article-list');
+  const items = filter
+    ? STATE.articles.filter(a => a.name.toLowerCase().includes(filter.toLowerCase()))
+    : STATE.articles;
+
+  if (!items.length) {
+    list.innerHTML = '<div class="article-list-empty">Sin artículos aún.<br/>Pulsa "+ Nuevo" para crear el primero.</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(a => {
+    const isActive = STATE.currentFile === a.path;
+    const slug = a.name.replace('.md', '');
+    return `<div class="article-item ${isActive ? 'active' : ''}" onclick="openArticle('${a.path}', '${a.name}')">
+      <div class="article-item-cat">Blog</div>
+      <div class="article-item-title">${slug.replace(/-/g,' ')}</div>
+      <div class="article-item-meta"><span>${a.name}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function filterArticles() {
+  renderArticleList(document.getElementById('search-input').value);
+}
+
+// ── OPEN ARTICLE ─────────────────────────────────────
+async function openArticle(path, name) {
+  if (STATE.unsaved && !confirm('Tienes cambios sin guardar. ¿Continuar?')) return;
+  try {
+    const file = await ghGetFile(path);
+    const content = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
+    STATE.currentFile = path;
+    STATE.currentSha  = file.sha;
+    parseAndLoad(content);
+    showEditor();
+    document.getElementById('topbar-title').textContent = name.replace('.md', '');
+    document.getElementById('delete-btn').style.display = '';
+    renderArticleList(document.getElementById('search-input').value);
+    STATE.unsaved = false;
+    updateSaveStatus();
+    enableSave();
+    updateWordCount();
+    showToast('Artículo cargado');
+  } catch (e) {
+    showToast('Error abriendo artículo: ' + e.message, 'error');
+  }
+}
+
+function parseAndLoad(raw) {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) { document.getElementById('md-editor').value = raw; return; }
+
+  const fm = match[1];
+  const body = match[2].trim();
+  const get = (key) => {
+    const m = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+    return m ? m[1].trim().replace(/^["']|["']$/g, '') : '';
+  };
+
+  document.getElementById('fm-titulo').value   = get('titulo') || get('title') || '';
+  document.getElementById('fm-categoria').value = get('categoria') || get('category') || 'Streaming';
+  document.getElementById('fm-fecha').value    = get('fecha') || get('date') || '';
+  document.getElementById('fm-resumen').value  = get('resumen') || get('excerpt') || '';
+  document.getElementById('fm-emoji').value    = get('emoji') || '📝';
+  document.getElementById('fm-tags').value     = get('tags') || '';
+  document.getElementById('fm-slug').value     = get('slug') || '';
+  document.getElementById('md-editor').value   = body;
+
+  const pub = get('publicado');
+  STATE.isPublicado = pub !== 'false';
+  updatePublicadoToggle();
+  updateWordCount();
+  syncEmojiGrid();
+}
+
+function syncEmojiGrid() {
+  const current = document.getElementById('fm-emoji').value;
+  document.querySelectorAll('.emoji-opt').forEach(btn => {
+    btn.classList.toggle('selected', btn.textContent === current);
+  });
+}
+
+// ── NEW ARTICLE ───────────────────────────────────────
+function newArticle() {
+  if (STATE.unsaved && !confirm('Tienes cambios sin guardar. ¿Continuar?')) return;
+  STATE.currentFile = null; STATE.currentSha = null; STATE.unsaved = false;
+
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('fm-titulo').value   = '';
+  document.getElementById('fm-categoria').value = 'Streaming';
+  document.getElementById('fm-fecha').value    = today;
+  document.getElementById('fm-resumen').value  = '';
+  document.getElementById('fm-emoji').value    = '📝';
+  document.getElementById('fm-tags').value     = '';
+  document.getElementById('fm-slug').value     = '';
+  document.getElementById('md-editor').value   = '';
+  STATE.isPublicado = false;
+  updatePublicadoToggle();
+  showEditor();
+  switchTab('meta');
+  document.getElementById('topbar-title').textContent = 'Nuevo artículo';
+  document.getElementById('delete-btn').style.display = 'none';
+  enableSave();
+  updateWordCount();
+  document.querySelectorAll('.emoji-opt').forEach(b => b.classList.remove('selected'));
+  if (window.innerWidth <= 640) toggleSidebar();
+}
+
+// ── BUILD MARKDOWN ────────────────────────────────────
+function buildMarkdown() {
+  const titulo    = document.getElementById('fm-titulo').value.trim();
+  const categoria = document.getElementById('fm-categoria').value;
+  const fecha     = document.getElementById('fm-fecha').value;
+  const resumen   = document.getElementById('fm-resumen').value.trim();
+  const emoji     = document.getElementById('fm-emoji').value.trim() || '📝';
+  const tags      = document.getElementById('fm-tags').value.trim();
+  const slug      = document.getElementById('fm-slug').value.trim() || titleToSlug(titulo);
+  const body      = document.getElementById('md-editor').value;
+
+  let fm = `---\ntitulo: "${titulo}"\nfecha: ${fecha}\ncategoria: "${categoria}"\nresumen: "${resumen.replace(/"/g, '\\"')}"\nemoji: "${emoji}"\n`;
+  if (tags)  fm += `tags: "${tags}"\n`;
+  if (slug)  fm += `slug: ${slug}\n`;
+  fm += `publicado: ${STATE.isPublicado}\n---\n\n${body}`;
+  return { md: fm, slug };
+}
+
+function titleToSlug(title) {
+  return title.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '').trim()
+    .replace(/\s+/g, '-').substring(0, 80);
+}
+
+// ── SAVE ARTICLE ──────────────────────────────────────
+async function saveArticle() {
+  const titulo = document.getElementById('fm-titulo').value.trim();
+  if (!titulo) { showToast('Añade un título antes de guardar', 'warning'); switchTab('meta'); return; }
+
+  const { md, slug } = buildMarkdown();
+  const filename = `${slug || titleToSlug(titulo)}.md`;
+  const path     = `blog/${filename}`;
+  const isNew    = !STATE.currentFile;
+  const emoji    = STATE.isPublicado ? '📝' : '📋';
+  const message  = isNew
+    ? `✍️ Nuevo artículo: ${titulo}`
+    : `📝 Actualizar: ${titulo}`;
+
+  setSaving(true);
+  try {
+    const res = await ghPutFile(path, md, message, STATE.currentSha || null);
+    STATE.currentFile = path;
+    STATE.currentSha  = res.content.sha;
+    STATE.unsaved = false;
+    updateSaveStatus();
+    showToast(isNew
+      ? `Artículo creado · ${STATE.isPublicado ? 'Build en curso...' : 'Guardado como borrador'}`
+      : `Guardado · ${STATE.isPublicado ? 'Build en curso...' : 'Borrador actualizado'}`);
+    document.getElementById('topbar-title').textContent = filename.replace('.md', '');
+    await loadArticles();
+    renderArticleList(document.getElementById('search-input').value);
+  } catch (e) {
+    showToast('Error al guardar: ' + e.message, 'error');
+  } finally {
+    setSaving(false);
+  }
+}
+
+// ── DELETE ARTICLE ────────────────────────────────────
+function confirmDelete() {
+  if (!STATE.currentFile) return;
+  document.getElementById('delete-modal').classList.add('open');
+}
+
+async function deleteArticle() {
+  closeModal('delete-modal');
+  try {
+    const titulo = document.getElementById('fm-titulo').value || STATE.currentFile;
+    await ghDeleteFile(STATE.currentFile, STATE.currentSha, `🗑️ Eliminar: ${titulo}`);
+    STATE.currentFile = null; STATE.currentSha = null;
+    showToast('Artículo eliminado');
+    document.getElementById('editor-content').style.display = 'none';
+    document.getElementById('welcome-screen').style.display = 'flex';
+    document.getElementById('topbar-title').textContent = 'Selecciona o crea un artículo';
+    document.getElementById('delete-btn').style.display = 'none';
+    document.getElementById('save-btn').disabled = true;
+    await loadArticles();
+  } catch (e) {
+    showToast('Error eliminando: ' + e.message, 'error');
+  }
+}
+
+// ── UI HELPERS ────────────────────────────────────────
+function showEditor() {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('editor-content').style.display = 'flex';
+}
+
+function switchTab(tab) {
+  ['meta','editor','preview'].forEach(t => {
+    document.getElementById(`panel-${t}`).classList.toggle('active', t === tab);
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+  });
+  if (tab === 'preview') {
+    document.getElementById('panel-preview').innerHTML =
+      renderMarkdown(document.getElementById('md-editor').value);
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+function togglePublicado() {
+  STATE.isPublicado = !STATE.isPublicado;
+  updatePublicadoToggle();
+  onFieldChange();
+}
+
+function updatePublicadoToggle() {
+  const toggle = document.getElementById('pub-toggle');
+  const label  = document.getElementById('pub-label');
+  toggle.classList.toggle('on', STATE.isPublicado);
+  label.textContent = STATE.isPublicado ? 'Publicado ✓' : 'Borrador (no se publicará)';
+  document.getElementById('save-label').textContent = STATE.isPublicado ? 'Publicar' : 'Guardar borrador';
+}
+
+function enableSave() {
+  document.getElementById('save-btn').disabled = false;
+}
+
+function setSaving(on) {
+  document.getElementById('save-spinner').classList.toggle('visible', on);
+  document.getElementById('save-label').style.display = on ? 'none' : '';
+  document.getElementById('save-btn').disabled = on;
+}
+
+function onFieldChange() {
+  STATE.unsaved = true;
+  updateSaveStatus();
+  enableSave();
+  // Auto slug desde título
+  const slugEl = document.getElementById('fm-slug');
+  const titulo = document.getElementById('fm-titulo').value;
+  if (!slugEl.dataset.manual && titulo) slugEl.value = titleToSlug(titulo);
+}
+
+document.getElementById('fm-slug').addEventListener('input', function() {
+  this.dataset.manual = 'true';
+});
+
+function onEditorChange() {
+  STATE.unsaved = true;
+  updateSaveStatus();
+  updateWordCount();
+  enableSave();
+  if (STATE.splitView) {
+    document.getElementById('md-preview').innerHTML =
+      renderMarkdown(document.getElementById('md-editor').value);
+  }
+}
+
+function updateSaveStatus() {
+  const el = document.getElementById('status-saved');
+  el.textContent = STATE.unsaved ? 'Cambios sin guardar' : 'Guardado';
+  el.className   = `status-item ${STATE.unsaved ? 'warning' : ''}`;
+}
+
+function updateWordCount() {
+  const text = document.getElementById('md-editor').value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const mins  = Math.max(1, Math.ceil(words / 200));
+  document.getElementById('status-words').textContent = `${words} palabras`;
+  document.getElementById('status-read').textContent  = `${mins} min lectura`;
+}
+
+// ── MARKDOWN TOOLBAR ──────────────────────────────────
+function insertMd(before, after, newline = false) {
+  const ta = document.getElementById('md-editor');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  const prefix = newline ? '\n' : '';
+  ta.value = ta.value.substring(0, start) + prefix + before + sel + after + ta.value.substring(end);
+  ta.selectionStart = start + prefix.length + before.length;
+  ta.selectionEnd   = start + prefix.length + before.length + sel.length;
+  ta.focus();
+  onEditorChange();
+}
+
+function insertMdLine(prefix) {
+  const ta = document.getElementById('md-editor');
+  const start = ta.selectionStart;
+  const lineStart = ta.value.lastIndexOf('\n', start - 1) + 1;
+  ta.value = ta.value.substring(0, lineStart) + prefix + ta.value.substring(lineStart);
+  ta.selectionStart = ta.selectionEnd = lineStart + prefix.length;
+  ta.focus();
+  onEditorChange();
+}
+
+function toggleSplit() {
+  STATE.splitView = !STATE.splitView;
+  const wrap    = document.getElementById('md-editor-wrap');
+  const preview = document.getElementById('md-preview');
+  wrap.classList.toggle('split-active', STATE.splitView);
+  preview.classList.toggle('visible', STATE.splitView);
+  if (STATE.splitView) {
+    preview.innerHTML = renderMarkdown(document.getElementById('md-editor').value);
+  }
+  document.getElementById('split-btn').style.color = STATE.splitView ? 'var(--green)' : '';
+}
+
+// ── MARKDOWN RENDERER ─────────────────────────────────
+function renderMarkdown(md) {
+  return md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,  '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,   '<h1>$1</h1>')
+    .replace(/^> (.+)$/gm,   '<blockquote>$1</blockquote>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,   '<em>$1</em>')
+    .replace(/`(.+?)`/g,     '<code>$1</code>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
+    .replace(/^- (.+)$/gm,   '<li>$1</li>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/<li>/g, '<ul><li>').replace(/<\/li>/g, '</li></ul>')
+    .replace(/<\/ul><ul>/g, '');
+}
+
+// ── MODALS ────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── TOASTS ───────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type !== 'success' ? type : ''}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveArticle(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); newArticle(); }
+});
+
+document.getElementById('gh-token').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+window.addEventListener('beforeunload', e => {
+  if (STATE.unsaved) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</body>
+</html>
