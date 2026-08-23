@@ -1,7 +1,7 @@
 /**
  * build-blog.js - NoéGMedia
  * Genera HTML estático de cada artículo .md en /blog/
- * y actualiza el listado en blog.html y el preview en index.html
+ * Soporta: imagen destacada, filtro por categoría (data-categoria), emoji fallback
  */
 
 import { readFileSync, writeFileSync, readdirSync } from 'fs';
@@ -34,11 +34,10 @@ function mdAHtml(md) {
     .replace(/^# (.+)$/gm,   '<h1>$1</h1>')
     .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\*(.+?)\*/g,   '<em>$1</em>')
+    .replace(/`(.+?)`/g,     '<code>$1</code>')
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,  '<a href="$2">$1</a>');
   h = h.replace(/(^[-*] .+$\n?)+/gm, bloque => {
     const items = bloque.trim().split('\n').map(l => `<li>${l.replace(/^[-*] /, '')}</li>`).join('');
     return `<ul>${items}</ul>`;
@@ -95,6 +94,7 @@ for (const { slug, meta, cuerpo } of articulos) {
   const fecha     = meta.fecha     || meta.date || '';
   const categoria = meta.categoria || 'Blog';
   const tags      = meta.tags      || '';
+  const imagen    = meta.imagen    || '';   // ruta desde la raíz: /img/blog/foto.jpg
   const canonical = `https://www.noegmedia.es/blog/${slug}.html`;
 
   const schema = JSON.stringify({
@@ -104,6 +104,7 @@ for (const { slug, meta, cuerpo } of articulos) {
     "description": resumen,
     "datePublished": fechaISO(fecha),
     "keywords": tags,
+    ...(imagen ? { "image": `https://www.noegmedia.es${imagen}` } : {}),
     "author": { "@type": "Person", "name": "Noé G.", "url": "https://www.linkedin.com/in/noeg-media/" },
     "publisher": { "@type": "Organization", "name": "NoéGMedia", "url": "https://www.noegmedia.es",
       "logo": { "@type": "ImageObject", "url": "https://www.noegmedia.es/img/favicon.svg" } },
@@ -125,9 +126,11 @@ for (const { slug, meta, cuerpo } of articulos) {
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonical}">
   <meta property="og:locale" content="es_ES">
-  <meta name="twitter:card" content="summary_large_image">
+  ${imagen ? `<meta property="og:image" content="https://www.noegmedia.es${imagen}">` : ''}
+  <meta name="twitter:card" content="${imagen ? 'summary_large_image' : 'summary'}">
   <meta name="twitter:title" content="${titulo.replace(/"/g,'&quot;')} — NoéGMedia">
   <meta name="twitter:description" content="${resumen.replace(/"/g,'&quot;')}">
+  ${imagen ? `<meta name="twitter:image" content="https://www.noegmedia.es${imagen}">` : ''}
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
   <title>${titulo} — NoéGMedia</title>
@@ -136,27 +139,21 @@ for (const { slug, meta, cuerpo } of articulos) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;900&display=swap" rel="stylesheet">
   <style>
-    :root{--verde:#007A4D;--verde-o:#005C3A;--verde-c:#E8F5EE;--blanco:#FAFAF7;--negro:#111210;--gris:#6B7280;--t:0.35s cubic-bezier(0.4,0,0.2,1);--outfit:'Outfit',system-ui,sans-serif}
+    :root{--verde:#007A4D;--verde-o:#005C3A;--verde-c:#E8F5EE;--blanco:#FAFAF7;--negro:#111210;--gris:#6B7280;--t:0.35s cubic-bezier(0.4,0,0.2,1)}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{font-family:var(--outfit);font-weight:400;background:var(--blanco);color:var(--negro);overflow-x:hidden}
-    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--blanco)}::-webkit-scrollbar-thumb{background:var(--verde);border-radius:2px}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    body{font-family:'Outfit',system-ui,sans-serif;font-weight:400;background:var(--blanco);color:var(--negro);overflow-x:hidden}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--verde);border-radius:2px}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 
     .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(250,250,247,0.96);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,122,77,0.1)}
-    .nav-logo{height:32px}
-    .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
-    .nav-links a{font-size:0.9rem;font-weight:500;color:var(--negro);transition:color var(--t)}
-    .nav-links a:hover,.nav-links a.activo{color:var(--verde)}
-    .nav-contacto{font-size:0.85rem;font-weight:600;padding:0.55rem 1.4rem;border-radius:100px;border:1.5px solid var(--verde);color:var(--verde);transition:all var(--t)}
-    .nav-contacto:hover{background:var(--verde);color:#fff}
-    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
-    .burger span{display:block;width:22px;height:1.5px;background:var(--negro)}
+    .nav-logo{height:32px}.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+    .nav-links a{font-size:0.9rem;font-weight:500;color:var(--negro);transition:color var(--t)}.nav-links a:hover,.nav-links a.activo{color:var(--verde)}
+    .nav-contacto{font-size:0.85rem;font-weight:600;padding:0.55rem 1.4rem;border-radius:100px;border:1.5px solid var(--verde);color:var(--verde);transition:all var(--t)}.nav-contacto:hover{background:var(--verde);color:#fff}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}.burger span{display:block;width:22px;height:1.5px;background:var(--negro)}
     .nav-mobile{display:none;position:fixed;inset:0;z-index:99;background:var(--verde-o);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
-    .nav-mobile.open{display:flex}
-    .nav-mobile a{font-size:2rem;font-weight:900;color:#fff}
-    .nav-mobile-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;font-family:var(--outfit);cursor:pointer}
+    .nav-mobile.open{display:flex}.nav-mobile a{font-size:2rem;font-weight:900;color:#fff}
+    .nav-mobile-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer}
 
     .art-wrap{max-width:720px;margin:0 auto;padding:7rem 2rem 6rem}
     .breadcrumb{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--gris);margin-bottom:3rem}
@@ -164,9 +161,11 @@ for (const { slug, meta, cuerpo } of articulos) {
     .art-cat{font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--verde);display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem}
     .art-cat::before{content:'';width:22px;height:1.5px;background:var(--verde)}
     .art-titulo{font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;color:var(--negro);margin-bottom:1.5rem}
-    .art-meta{display:flex;align-items:center;gap:1.5rem;padding:1.2rem 0;border-top:1px solid rgba(0,122,77,0.1);border-bottom:1px solid rgba(0,122,77,0.1);margin-bottom:3rem}
-    .art-fecha{font-size:0.82rem;font-weight:500;color:var(--gris)}
-    .art-autor{font-size:0.82rem;font-weight:500;color:var(--gris)}
+    .art-meta{display:flex;align-items:center;gap:1.5rem;padding:1.2rem 0;border-top:1px solid rgba(0,122,77,0.1);border-bottom:1px solid rgba(0,122,77,0.1);margin-bottom:2.5rem}
+    .art-fecha,.art-autor{font-size:0.82rem;font-weight:500;color:var(--gris)}
+
+    /* Imagen destacada */
+    .art-imagen{width:100%;max-height:440px;object-fit:cover;border-radius:16px;margin-bottom:2.5rem;border:1px solid rgba(0,122,77,0.08);box-shadow:0 8px 32px rgba(0,122,77,0.1)}
 
     .art-cuerpo h2{font-size:1.5rem;font-weight:900;letter-spacing:-0.02em;color:var(--negro);margin:2.5rem 0 1rem;padding-left:1rem;border-left:3px solid var(--verde)}
     .art-cuerpo h3{font-size:1.15rem;font-weight:700;color:var(--negro);margin:2rem 0 0.8rem}
@@ -175,8 +174,7 @@ for (const { slug, meta, cuerpo } of articulos) {
     .art-cuerpo li{margin-bottom:0.5rem;line-height:1.7;color:var(--gris)}
     .art-cuerpo strong{color:var(--negro);font-weight:600}
     .art-cuerpo em{font-style:italic}
-    .art-cuerpo a{color:var(--verde);font-weight:500;border-bottom:1px solid rgba(0,122,77,0.25);transition:border-color var(--t)}
-    .art-cuerpo a:hover{border-color:var(--verde)}
+    .art-cuerpo a{color:var(--verde);font-weight:500;border-bottom:1px solid rgba(0,122,77,0.25);transition:border-color var(--t)}.art-cuerpo a:hover{border-color:var(--verde)}
     .art-cuerpo code{font-size:0.85rem;background:var(--verde-c);color:var(--verde-o);padding:0.15rem 0.5rem;border-radius:4px}
     .art-cuerpo blockquote{border-left:3px solid var(--verde);padding:1rem 1.5rem;margin:2rem 0;background:var(--verde-c);border-radius:0 10px 10px 0}
     .art-cuerpo blockquote p{color:var(--verde-o);font-style:italic;margin:0}
@@ -184,31 +182,22 @@ for (const { slug, meta, cuerpo } of articulos) {
 
     .art-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(0,122,77,0.1)}
     .tag{font-size:0.72rem;font-weight:500;letter-spacing:0.06em;padding:0.3rem 0.8rem;background:var(--verde-c);color:var(--verde-o);border-radius:100px}
-
     .compartir{margin-top:2.5rem;padding:2rem;background:#fff;border:1px solid rgba(0,122,77,0.1);border-radius:16px}
     .compartir-titulo{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gris);margin-bottom:1rem}
     .compartir-btns{display:flex;gap:0.7rem;flex-wrap:wrap}
-    .share-btn{font-family:var(--outfit);font-size:0.8rem;font-weight:500;padding:0.55rem 1.1rem;border:1.5px solid rgba(0,122,77,0.15);border-radius:100px;color:var(--gris);background:none;cursor:pointer;transition:all var(--t);display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none}
-    .share-btn:hover{border-color:var(--verde);color:var(--verde)}
-
+    .share-btn{font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:500;padding:0.55rem 1.1rem;border:1.5px solid rgba(0,122,77,0.15);border-radius:100px;color:var(--gris);background:none;cursor:pointer;transition:all var(--t);display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none}.share-btn:hover{border-color:var(--verde);color:var(--verde)}
     .art-pie{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem}
-    .btn-volver{font-family:var(--outfit);font-size:0.88rem;font-weight:500;padding:0.75rem 1.8rem;border-radius:100px;border:1.5px solid rgba(0,122,77,0.2);color:var(--gris);transition:all var(--t);display:inline-flex;align-items:center;gap:0.5rem}
-    .btn-volver:hover{border-color:var(--verde);color:var(--verde)}
-    .btn-contacto{font-family:var(--outfit);font-size:0.88rem;font-weight:600;padding:0.75rem 1.8rem;border-radius:100px;background:var(--verde);color:#fff;border:none;cursor:pointer;transition:all var(--t);display:inline-flex;align-items:center;gap:0.5rem}
-    .btn-contacto:hover{background:var(--verde-o);transform:translateY(-2px)}
-
+    .btn-volver{font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:500;padding:0.75rem 1.8rem;border-radius:100px;border:1.5px solid rgba(0,122,77,0.2);color:var(--gris);transition:all var(--t);display:inline-flex;align-items:center;gap:0.5rem}.btn-volver:hover{border-color:var(--verde);color:var(--verde)}
+    .btn-contacto{font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:600;padding:0.75rem 1.8rem;border-radius:100px;background:var(--verde);color:#fff;border:none;cursor:pointer;transition:all var(--t);display:inline-flex;align-items:center;gap:0.5rem}.btn-contacto:hover{background:var(--verde-o);transform:translateY(-2px)}
     footer{background:var(--negro);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
     .footer-logo{height:28px;filter:brightness(0) invert(0.35)}
     .footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.25)}
     .footer-legal{display:flex;gap:1.5rem}
-    .footer-legal a{font-size:0.75rem;color:rgba(255,255,255,0.25);transition:color var(--t)}
-    .footer-legal a:hover{color:rgba(255,255,255,0.6)}
-
+    .footer-legal a{font-size:0.75rem;color:rgba(255,255,255,0.25);transition:color var(--t)}.footer-legal a:hover{color:rgba(255,255,255,0.6)}
     @media(max-width:900px){.nav{padding:1rem 1.5rem}.nav-links,.nav-contacto{display:none}.burger{display:flex}.art-wrap{padding:6rem 1.5rem 5rem}footer{flex-direction:column;text-align:center}}
   </style>
 </head>
 <body>
-
 <nav class="nav">
   <a href="../index.html"><img src="../img/logo-noegmedia.svg" alt="NoéGMedia" class="nav-logo"></a>
   <ul class="nav-links">
@@ -219,7 +208,6 @@ for (const { slug, meta, cuerpo } of articulos) {
   </ul>
   <button class="burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
-
 <div class="nav-mobile" id="nav-mobile">
   <button class="nav-mobile-close" id="close-nav">cerrar ✕</button>
   <a href="../index.html">Inicio</a>
@@ -234,19 +222,15 @@ for (const { slug, meta, cuerpo } of articulos) {
     <a href="../blog.html">Blog</a> <span>›</span>
     <span>${titulo}</span>
   </nav>
-
   <div class="art-cat">${categoria}</div>
   <h1 class="art-titulo">${titulo}</h1>
-
   <div class="art-meta">
     <time class="art-fecha" datetime="${fechaISO(fecha)}">${formatFecha(fecha)}</time>
     <span class="art-autor">por Noé G.</span>
   </div>
-
+  ${imagen ? `<img src="../${imagen}" alt="${titulo}" class="art-imagen">` : ''}
   <div class="art-cuerpo">${mdAHtml(cuerpo)}</div>
-
   ${tagsHtml ? `<div class="art-tags">${tagsHtml}</div>` : ''}
-
   <div class="compartir">
     <div class="compartir-titulo">Compartir</div>
     <div class="compartir-btns">
@@ -255,7 +239,6 @@ for (const { slug, meta, cuerpo } of articulos) {
       <button class="share-btn" onclick="navigator.clipboard.writeText('${canonical}').then(()=>{this.textContent='✓ Copiado'});setTimeout(()=>{this.textContent='🔗 Copiar enlace'},2000)">🔗 Copiar enlace</button>
     </div>
   </div>
-
   <div class="art-pie">
     <a href="../blog.html" class="btn-volver">← Volver al blog</a>
     <a href="../index.html#contacto" class="btn-contacto">¿Hablamos? →</a>
@@ -270,7 +253,6 @@ for (const { slug, meta, cuerpo } of articulos) {
     <a href="../legal/terminos-servicios.html">Términos</a>
   </div>
 </footer>
-
 <script>
   document.getElementById('burger').addEventListener('click',()=>document.getElementById('nav-mobile').classList.add('open'));
   document.getElementById('close-nav').addEventListener('click',()=>document.getElementById('nav-mobile').classList.remove('open'));
@@ -286,17 +268,23 @@ for (const { slug, meta, cuerpo } of articulos) {
 const blogSrc = readFileSync('blog.html', 'utf-8');
 
 const tarjetas = articulos.map(({ slug, meta }) => {
-  const titulo  = meta.titulo    || 'Sin título';
-  const resumen = meta.resumen   || '';
-  const fecha   = meta.fecha     || meta.date || '';
-  const cat     = meta.categoria || 'Blog';
-  const emoji   = meta.emoji     || '📝';
+  const titulo   = meta.titulo    || 'Sin título';
+  const resumen  = meta.resumen   || '';
+  const fecha    = meta.fecha     || meta.date || '';
+  const cat      = meta.categoria || 'Blog';
+  const emoji    = meta.emoji     || '📝';
+  const imagen   = meta.imagen    || '';
+
+  const thumbStyle = imagen
+    ? `style="background-image:url('${imagen}');background-size:cover;background-position:center"`
+    : '';
+  const thumbIco = imagen ? '' : `<span class="blog-card-thumb-ico">${emoji}</span>`;
 
   return `
-    <a href="blog/${slug}.html" class="blog-card">
-      <div class="blog-card-thumb">
+    <a href="blog/${slug}.html" class="blog-card" data-categoria="${cat}">
+      <div class="blog-card-thumb" ${thumbStyle}>
         <span class="blog-cat">${cat}</span>
-        <span class="blog-card-thumb-ico">${emoji}</span>
+        ${thumbIco}
       </div>
       <div class="blog-card-body">
         <div class="blog-fecha">${formatFecha(fecha)}</div>
@@ -328,12 +316,18 @@ const preview = articulos.slice(0, 3).map(({ slug, meta }) => {
   const fecha   = meta.fecha     || meta.date || '';
   const cat     = meta.categoria || 'Blog';
   const emoji   = meta.emoji     || '📝';
+  const imagen  = meta.imagen    || '';
+
+  const thumbStyle = imagen
+    ? `style="background-image:url('${imagen}');background-size:cover;background-position:center"`
+    : '';
+  const thumbIco = imagen ? '' : `<span class="blog-card-thumb-ico">${emoji}</span>`;
 
   return `
-    <a href="blog/${slug}.html" class="blog-card">
-      <div class="blog-card-thumb">
+    <a href="blog/${slug}.html" class="blog-card" data-categoria="${cat}">
+      <div class="blog-card-thumb" ${thumbStyle}>
         <span class="blog-cat">${cat}</span>
-        <span class="blog-card-thumb-ico">${emoji}</span>
+        ${thumbIco}
       </div>
       <div class="blog-card-body">
         <div class="blog-fecha">${formatFecha(fecha)}</div>
@@ -352,8 +346,6 @@ const indexFinal = indexSrc.replace(
 if (indexFinal !== indexSrc) {
   writeFileSync('index.html', indexFinal, 'utf-8');
   console.log('  ✅ index.html preview actualizado');
-} else {
-  console.log('  ℹ️  div#blog-preview no encontrado en index.html — normal si no hay sección blog');
 }
 
 console.log('\n🎉 Build completado');
