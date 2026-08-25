@@ -146,11 +146,11 @@ for (const { slug, meta, cuerpo } of articulos) {
     ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--verde);border-radius:2px}
     a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 
-    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(250,250,247,0.96);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,122,77,0.1)}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(0,92,58,0.97);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,0,0,0.15)}
     .nav-logo{height:32px}.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
-    .nav-links a{font-size:0.9rem;font-weight:500;color:var(--negro);transition:color var(--t)}.nav-links a:hover,.nav-links a.activo{color:var(--verde)}
-    .nav-contacto{font-size:0.85rem;font-weight:600;padding:0.55rem 1.4rem;border-radius:100px;border:1.5px solid var(--verde);color:var(--verde);transition:all var(--t)}.nav-contacto:hover{background:var(--verde);color:#fff}
-    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}.burger span{display:block;width:22px;height:1.5px;background:var(--negro)}
+    .nav-links a{font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.8);transition:color var(--t)}.nav-links a:hover,.nav-links a.activo{color:#fff}
+    .nav-contacto{font-size:0.85rem;font-weight:600;padding:0.55rem 1.4rem;border-radius:100px;border:1.5px solid rgba(255,255,255,0.4);color:#fff;transition:all var(--t)}.nav-contacto:hover{background:rgba(255,255,255,0.15);border-color:#fff}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}.burger span{display:block;width:22px;height:1.5px;background:#fff}
     .nav-mobile{display:none;position:fixed;inset:0;z-index:99;background:var(--verde-o);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
     .nav-mobile.open{display:flex}.nav-mobile a{font-size:2rem;font-weight:900;color:#fff}
     .nav-mobile-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer}
