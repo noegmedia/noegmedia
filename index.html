@@ -75,18 +75,18 @@
       transition: background var(--t), padding var(--t), box-shadow var(--t);
     }
     .nav.scrolled {
-      background: rgba(250,250,247,0.96);
+      background: rgba(0,92,58,0.97);
       backdrop-filter: blur(12px);
       padding: 1rem 3rem;
-      box-shadow: 0 1px 0 rgba(0,122,77,0.1);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.15);
     }
     .nav-logo {
       height: 36px;
       transition: opacity var(--t);
     }
     .nav-logo:hover { opacity: 0.75; }
-    /* Logo blanco en hero, normal en scroll */
-    .nav:not(.scrolled) .nav-logo { filter: brightness(0) invert(1); }
+    /* Logo siempre blanco — navbar siempre verde */
+    .nav-logo { filter: brightness(0) invert(1); }
 
     .nav-links {
       display: flex;
@@ -112,7 +112,7 @@
     }
     .nav-links a:hover::after { width: 100%; }
     .nav-links a:hover { color: rgba(255,255,255,0.6); }
-    .nav.scrolled .nav-links a:hover { color: var(--verde); }
+    .nav.scrolled .nav-links a:hover { color: #fff; }
 
     .nav-contacto {
       font-size: 0.85rem;
