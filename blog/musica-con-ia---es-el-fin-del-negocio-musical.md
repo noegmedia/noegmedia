@@ -24,4 +24,8 @@ Pero con una **gran facilidad**, que al final plantea una paradoja y dilema sobr
 
 Cuando pensamos en los y las fans que se desviven por un artista terrenal, una persona humana, sabemos que es a algo NFT, algo que es tangible y que solo hay uno en todo el planeta.
 
-Pero con esta nueva musica de IA, cualquier momento tendremos generado al artista, en cualquier lugar y momento.
+Pero con esta nueva musica de IA, cualquier momento tendremos generando música al artista, en cualquier lugar y momento. Sin conciertos en directo, sin persona terrenal a la que admirar. 
+
+## ¿Que ocurrirá con los artistas? 
+
+Es una de las dudas mas difíciles de determinar en **tiempos de IA**. Porque a los músicos prácticamente se han **reemplazado**, y
