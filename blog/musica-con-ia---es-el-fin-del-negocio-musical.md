@@ -6,7 +6,7 @@ resumen: "La música se ha relacionado con artistas cantantes, músicos, hasta e
 emoji: "🖊️"
 tags: "musica, inteligencia artifiical"
 slug: musica-con-ia---es-el-fin-del-negocio-musical
-publicado: false
+publicado: true
 ---
 
 Desde hace unos 3 años, se ha empezado a **coquetear con la IA**, democratizando la información y la generación de contenido audiovisual. 
