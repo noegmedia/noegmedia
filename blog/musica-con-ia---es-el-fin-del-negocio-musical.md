@@ -1,0 +1,27 @@
+---
+titulo: "Música con IA - ¿Es el fin del negocio musical?"
+fecha: 2026-10-11
+categoria: "Opinión"
+resumen: "La música se ha relacionado con artistas cantantes, músicos, hasta el punto de generar hasta clubs de fans. Pero ahora, con la IA y la generación musical...¿Qué pasará con la industria musical?"
+emoji: "🖊️"
+tags: "musica, inteligencia artifiical"
+slug: musica-con-ia---es-el-fin-del-negocio-musical
+publicado: false
+---
+
+Desde hace unos 3 años, se ha empezado a **coquetear con la IA**, democratizando la información y la generación de contenido audiovisual. 
+
+Sin embargo, en menos tiempo, se ha planteado un dilema que a **nadie se le habia ocurrido** y es cuando el **arte musical lo hace una máquina**. 
+De igual manera que un artista, escucha, apunta y aprende. Y crea con lo que ha aprendido. 
+
+## La IA ya ha aprendido a cantar sola.
+
+¿Que pasa ahora? Pues que la IA ha aprendido de tal manera, que ya tenemos aplicaciones que te hacen **canciones completas** con tan solo indicar su letra completa y que estilo quieres que sea. 
+
+Pero con una **gran facilidad**, que al final plantea una paradoja y dilema sobre el futuro de la música. ¿Podremos confundir a artistas humanos con los robóticos?
+
+## ¿Los clubs de fans desaparecerán?
+
+Cuando pensamos en los y las fans que se desviven por un artista terrenal, una persona humana, sabemos que es a algo NFT, algo que es tangible y que solo hay uno en todo el planeta.
+
+Pero con esta nueva musica de IA, cualquier momento tendremos generado al artista, en cualquier lugar y momento.
