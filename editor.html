@@ -195,11 +195,11 @@
     <div class="topbar-divider"></div>
     <div class="topbar-title" id="topbar-title">Selecciona o crea un artículo</div>
     <div class="topbar-actions">
-      <button class="btn btn-sm btn-ghost" onclick="newArticle()">+ Nuevo</button>
-      <button class="btn btn-sm btn-delete" onclick="confirmDelete()" id="delete-btn" style="display:none">🗑 Eliminar</button>
+      <button class="btn btn-sm btn-ghost" onclick="newArticle()">🆕</button>
+      <button class="btn btn-sm btn-delete" onclick="confirmDelete()" id="delete-btn" style="display:none">🗑</button>
       <button class="btn btn-sm btn-primary" onclick="saveArticle()" id="save-btn" disabled>
         <div class="spinner" id="save-spinner"></div>
-        <span id="save-label">Publicar</span>
+        <span id="save-label">💾</span>
       </button>
     </div>
   </div>
@@ -242,15 +242,9 @@
             <div class="fm-field">
               <label class="fm-label">Categoría</label>
               <select class="fm-select" id="fm-categoria" onchange="onFieldChange()">
-                <option value="Streaming">Streaming</option>
-                <option value="Filmmaking">Filmmaking</option>
-                <option value="Producción">Producción</option>
-                <option value="Equipamiento">Equipamiento</option>
-                <option value="Redes Sociales">Redes Sociales</option>
-                <option value="Televisión">Televisión</option>
-                <option value="Diseño Digital">Diseño Digital</option>
-                <option value="Marbella">Marbella</option>
+                <option value="Audiovisual">Audiovisual</option>
                 <option value="Opinión">Opinión</option>
+                <option value="Noticias NoéGMedia">Noticias de NoéGMedia</option>
               </select>
             </div>
             <div class="fm-field">
@@ -360,7 +354,7 @@
 <div id="toast-container"></div>
 
 <script>
-const EMOJIS = ['📡','🎬','🎙️','📷','💻','🎨','📺','🎞️','🌊','🚀','✦','🎥','📱','🎤','🏔️','🌅'];
+const EMOJIS = ['🎬','📰','🖊️'];
 function initEmojiGrid() {
   const grid = document.getElementById('emoji-grid');
   grid.innerHTML = EMOJIS.map(e => `<button class="emoji-opt" onclick="selectEmoji('${e}')">${e}</button>`).join('');
