@@ -28,4 +28,8 @@ Pero con esta nueva musica de IA, cualquier momento tendremos generando música 
 
 ## ¿Que ocurrirá con los artistas? 
 
-Es una de las dudas mas difíciles de determinar en **tiempos de IA**. Porque a los músicos prácticamente se han **reemplazado**, y
+Es una de las dudas mas difíciles de determinar en **tiempos de IA**. Porque a los músicos prácticamente se han **reemplazado** con librerías *VST* y automatizaciones; a los cantantes, los generadores de voz tipo *Suno* (Y creanme que cada vez están afinando demasiado a la realidad).
+
+Por lo tanto, los artistas, en estos tiempos, tendrán que presentar la **propuesta emocional**, la transmisión de **sentimientos profundos** y el fiel reflejo de la humanidad. 
+
+Lo cual, los artistas que quizás sobrevivan sean aquellos **alternativos**, los que crean por **pasión a la música** con un concepto que vaya a *contracorriente*. Y los que lo vean tipo pop y comercial, tendrán un **futuro muy difícil**.
