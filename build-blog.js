@@ -96,6 +96,7 @@ for (const { slug, meta, cuerpo } of articulos) {
   const tags      = meta.tags      || '';
   const imagen    = meta.imagen    || '';   // ruta desde la raíz: /img/blog/foto.jpg
   const canonical = `https://www.noegmedia.es/blog/${slug}.html`;
+    const imgOG = imagen ? `https://www.noegmedia.es${imagen}` : 'https://www.noegmedia.es/img/og-image.jpg';
 
   const schema = JSON.stringify({
     "@context": "https://schema.org",
