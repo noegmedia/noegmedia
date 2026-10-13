@@ -127,11 +127,12 @@ for (const { slug, meta, cuerpo } of articulos) {
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonical}">
   <meta property="og:locale" content="es_ES">
-  ${imagen ? `<meta property="og:image" content="https://www.noegmedia.es${imagen}">` : ''}
-  <meta name="twitter:card" content="${imagen ? 'summary_large_image' : 'summary'}">
+    <meta property="og:image" content="${imgOG}">
+  <meta property="og:site_name" content="NoéGMedia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${imgOG}">
   <meta name="twitter:title" content="${titulo.replace(/"/g,'&quot;')} — NoéGMedia">
   <meta name="twitter:description" content="${resumen.replace(/"/g,'&quot;')}">
-  ${imagen ? `<meta name="twitter:image" content="https://www.noegmedia.es${imagen}">` : ''}
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
   <title>${titulo} — NoéGMedia</title>
